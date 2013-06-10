@@ -58,7 +58,7 @@ public class TeleportHandler {
 					a.teleport(spawn);	
 			}
 			
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			System.out.println("Lobby spawn not found in config. teleporting to");
 			System.out.println("default spawn area...");
 			

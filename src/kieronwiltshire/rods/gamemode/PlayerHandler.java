@@ -118,12 +118,14 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
 		Player att = event.getEntity().getKiller();
-		if(att instanceof Player && att.getEntityId() != event.getEntity().getEntityId()){	
-			String aName = att.getName();
+		String pName = event.getEntity().getName();
+		if(att instanceof Player && att.getEntityId() != event.getEntity().getEntityId()){
+			String aName = att.getName();	
 			plugin.count.put(aName, plugin.count.get(aName) + 1);
 			SQL.addKill(aName);
-			SQL.addDeath(event.getEntity().getName());
+			SQL.addMoney(aName, SQL.getMoney(pName) > SQL.getMoney(aName) ? 10 : 5);
 		}	
+		SQL.addDeath(pName);
 		event.getDrops().clear();
 	}
 
