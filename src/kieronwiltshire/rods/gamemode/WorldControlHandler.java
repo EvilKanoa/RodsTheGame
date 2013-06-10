@@ -1,7 +1,6 @@
 package kieronwiltshire.rods.gamemode;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,7 +19,7 @@ public class WorldControlHandler implements Listener, Runnable {
 
 	public WorldControlHandler(Main main) {
 		this.plugin = main;
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, 0L, 200L);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, 100L, 200L);
 	}
 
 	@EventHandler
@@ -39,7 +38,6 @@ public class WorldControlHandler implements Listener, Runnable {
 		if (Bukkit.getWorld("lobby") != null)
 			for (LivingEntity e : Bukkit.getWorld("lobby").getEntitiesByClass(LivingEntity.class)) {
 				if (!(e instanceof Player)) {
-					e.teleport(new Location(Bukkit.getWorld("lobby"), 0, -1, 0));
 					e.setHealth(0);
 				}
 			}
