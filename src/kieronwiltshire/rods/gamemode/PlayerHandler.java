@@ -118,7 +118,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
 		Player att = event.getEntity().getKiller();
-		if(att instanceof Player){	
+		if(att instanceof Player && att.getEntityId() != event.getEntity().getEntityId()){	
 			String aName = att.getName();
 			plugin.count.put(aName, plugin.count.get(aName) + 1);
 			SQL.addKill(aName);
@@ -131,7 +131,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerHungerLoss(FoodLevelChangeEvent e){
 		e.setCancelled(true);
 		if (e.getEntity() instanceof Player)
-			((Player)e.getEntity()).setFoodLevel(16);
+			((Player)e.getEntity()).setFoodLevel(plugin.lobbyBoolean? 20 : 16);
 	}
 
 
@@ -210,7 +210,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	@Override
 	public void run() {
 		for (Player p : Bukkit.getOnlinePlayers())
-			p.setFoodLevel(16);
+			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
 	}
 
 }

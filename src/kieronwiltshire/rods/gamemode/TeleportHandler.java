@@ -42,6 +42,8 @@ public class TeleportHandler {
 			float yaw = plugin.getConfig().getInt("maps." + Main.selectedMap + ".lobby.yaw");
 			float pitch = plugin.getConfig().getInt("maps." + Main.selectedMap + ".lobby.pitch");
 			
+			Bukkit.broadcastMessage(ChatMessages.selectedMapIs.replace("%%MAP%%", Main.selectedMap));
+			
 			try{
 				World world = Bukkit.getServer().getWorld(Main.selectedMap);
 				Location spawn = new Location(world, x, y, z, yaw, pitch);
@@ -49,22 +51,22 @@ public class TeleportHandler {
 				for(Player a : Bukkit.getOnlinePlayers())
 					a.teleport(spawn);	
 			
-			}catch (NullPointerException n){
+			} catch (NullPointerException n){
 				System.out.println("Map not found. Finding default spawn location.");
 				Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();	
 				for(Player a : Bukkit.getOnlinePlayers())
 					a.teleport(spawn);	
 			}
 			
-		}catch (NullPointerException e){
+		} catch (NullPointerException e){
 			System.out.println("Lobby spawn not found in config. teleporting to");
 			System.out.println("default spawn area...");
 			
-			try{
+			try {
 				Location spawn = Bukkit.getServer().getWorld("lobby").getSpawnLocation();	
 				for(Player a : Bukkit.getOnlinePlayers())
 					a.teleport(spawn);	
-			}catch (NullPointerException p){
+			} catch (NullPointerException p){
 				System.out.println("Lobby world could not be found.");
 			}
 		}
@@ -91,7 +93,7 @@ public class TeleportHandler {
 			Random randomNum = new Random();
 			int getSpawn = randomNum.nextInt(maxSpawnLimit);
 			player.setHealth(20);
-			player.setFoodLevel(16);
+			player.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
 			
 			if(plugin.getConfig().contains("maps." + Main.selectedMap + ".spawns." + getSpawn)){
 			
@@ -123,7 +125,7 @@ public class TeleportHandler {
 	public void teleportServerLobby(Player p) {
 		try{
 			p.setHealth(20);
-			p.setFoodLevel(16);
+			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
 			
 			double x = plugin.getConfig().getInt("lobby.x");
 			double y = plugin.getConfig().getInt("lobby.y");
@@ -163,7 +165,7 @@ public class TeleportHandler {
 			p.teleport(spawn);
 			
 			p.setHealth(20);
-			p.setFoodLevel(16);
+			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
 			
 		} catch (NullPointerException e){
 			System.out.println("Map spawn not found in config. teleporting to:");
