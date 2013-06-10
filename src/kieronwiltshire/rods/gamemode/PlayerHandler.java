@@ -93,7 +93,8 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player p = event.getPlayer();
 		String pName = p.getName();
-
+		
+		plugin.count.remove(pName);
 		event.setQuitMessage(ChatMessages.WHITE + pName + ChatMessages.quitMessage);
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
