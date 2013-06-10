@@ -1,0 +1,97 @@
+name: RodsTheGame
+version: 1.0.0
+main: kieronwiltshire.rods.gamemode.Main
+authors: [Kieron, KraZ, Kanoa, 12323op]
+depend: [LightningRods 2, MCC API]
+permissions:
+    rtg.import:
+        default: op
+    rtg.fs:
+        default: op
+    rtg.fr:
+        default: op
+    rtg.sl:
+        default: op
+    rtg.slt:
+        default: op
+    rtg.ss:
+        default: op
+    rtg.break:
+        default: op
+    rtg.place:
+        default: op
+    rtg.puke:
+        default: op
+    rtg.reloadclasses:
+        default: op
+    rtg.worldcheck:
+        default: op
+    rtg.map:
+        default: op
+    rtg.respawn:
+        default: op
+    rtg.worldteleport:
+        default: op
+    rtg.forceend:
+        default: op
+    rtg.forcesave:
+        default: op
+commands:
+    import:
+        description: Imports worlds into the config.
+        permission: rtg.import
+        permission-message: You don't have permission!
+    forcestart:
+        description: Forcestarts the game from lobby.
+        permission: rtg.fs
+        permission-message: You don't have permission!
+    forcerestart:
+        description: Restarts the gamemode.
+        permission: rtg.fr
+        permission-message: You don't have permission!
+    setlobby:
+        description: Set the spawns of lobbies.
+        permission: rtg.sl
+        permission-message: You don't have permission!
+    setspawn:
+        description: Set the random spawns of players.
+        permission: rtg.ss
+        permission-message: You don't have permission!
+    stoplobbytimer:
+        description: Stop lobby timer.
+        permission: rtg.slt
+        permission-message: You don't have permission!
+    reloadclasses:
+        description: Reload classes from filesystem.
+        permission: rtg.reloadclasses
+        aliases: [reload-classes, reload-class]
+        permission-message: You don't have permission!
+    worldcheck:
+        description: Checks the current world you're in.
+        permission: rtg.worldcheck
+        aliases: [world-check, check-world, checkworld]
+        permission-message: You don't have permission!
+    map:
+        description: Gets the current map.
+        permission: rtg.map
+        aliases: [level, checkmap, check-map]
+        permission-message: You don't have permission!
+    respawn:
+        description: Respawns the player.
+        permission: rtg.respawn
+        aliases: [death, suicide]
+        permission-message: You don't have permission!
+    worldteleport:
+        description: Teleports a player to a world.
+        permission: rtg.worldteleport
+        permission-message: You don't have permission!
+    forceend:
+        description: Force ends a game.
+        permission: rtg.forceend
+        aliases: [force-end]
+        permission-message: You don't have permission!
+    forcesave:
+        description: Force saves a map.
+        permission: rtg.forcesave
+        aliases: [force-save]
+        permission-message: You don't have permission!

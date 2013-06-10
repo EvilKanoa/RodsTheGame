@@ -1,0 +1,10 @@
+lobby-timer: 60
+game-timer: 600
+max-spawns:
+lobby:
+    x:
+    y:
+    z:
+    yaw:
+    pitch:
+maps:
