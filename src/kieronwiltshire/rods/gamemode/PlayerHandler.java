@@ -137,7 +137,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerHungerLoss(FoodLevelChangeEvent e){
 		e.setCancelled(true);
 		if (e.getEntity() instanceof Player)
-			((Player)e.getEntity()).setFoodLevel(plugin.lobbyBoolean? 20 : 16);
+			((Player)e.getEntity()).setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
 	}
 
 

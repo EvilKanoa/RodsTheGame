@@ -45,22 +45,27 @@ commands:
         description: Forcestarts the game from lobby.
         permission: rtg.fs
         permission-message: You don't have permission!
+        aliases: [force-start]
     forcerestart:
         description: Restarts the gamemode.
         permission: rtg.fr
         permission-message: You don't have permission!
+        aliases: [force-restart]
     setlobby:
         description: Set the spawns of lobbies.
         permission: rtg.sl
         permission-message: You don't have permission!
+        aliases: [set-lobby]
     setspawn:
         description: Set the random spawns of players.
         permission: rtg.ss
         permission-message: You don't have permission!
+        aliases: [set-spawn]
     stoplobbytimer:
         description: Stop lobby timer.
         permission: rtg.slt
         permission-message: You don't have permission!
+        aliases: [stop-lobby-timer, stoptimer, stop-timer]
     reloadclasses:
         description: Reload classes from filesystem.
         permission: rtg.reloadclasses
