@@ -126,6 +126,7 @@ public class ChatMessages {
 	public static String forceSave = prefix + "Force saving %%MAP%%...";
 	public static String saved = prefix + "World saved";
 	public static String noOnlineWin = prefix + "There is no-one online to win!";
+	public static String scoreboardTitle = L_PURPLE + "Score";
 	
 	
 	

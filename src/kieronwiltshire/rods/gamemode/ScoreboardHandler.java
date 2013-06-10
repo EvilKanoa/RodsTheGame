@@ -18,7 +18,7 @@ public class ScoreboardHandler {
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		score = board.registerNewObjective("Score", "dummy");
 		score.setDisplaySlot(DisplaySlot.SIDEBAR);
-		score.setDisplayName("Score");
+		score.setDisplayName(ChatMessages.scoreboardTitle);
 	}
 	
 	public static void addKill(String playerStr) {
