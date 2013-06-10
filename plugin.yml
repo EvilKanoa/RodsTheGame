@@ -36,7 +36,9 @@ permissions:
         default: op
     rtg.forcesave:
         default: op
-    rtg.class:
+    rtg.class.cmd:
+        default: op
+    rtg.class.gui:
         default: op
 commands:
     import:
@@ -104,6 +106,4 @@ commands:
         permission-message: You don't have permission!
     class:
         description: Chose a class with a command and GUI.
-        permission: rtg.class
         aliases: [gui, chose, g]
-        permission-message: You don't have permission!
