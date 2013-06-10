@@ -125,6 +125,7 @@ public class ChatMessages {
 	public static String noLobbyRespawn = prefix + "You can't respawn in the lobby!";
 	public static String forceSave = prefix + "Force saving %%MAP%%...";
 	public static String saved = prefix + "World saved";
+	public static String noOnlineWin = prefix + "There is no-one online to win!";
 	
 	
 	

@@ -38,6 +38,8 @@ public class EndGameManager extends FixedRunnable {
 					replace("%%KILLS%%", "" + plugin.count.get(pName)));
 			SQL.addWin(pName);
 		}
+		else
+			Bukkit.broadcastMessage(ChatMessages.noOnlineWin);
 
 		for(Player a : Bukkit.getOnlinePlayers()) {
 			a.setGameMode(GameMode.CREATIVE);
