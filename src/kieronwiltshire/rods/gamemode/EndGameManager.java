@@ -35,7 +35,7 @@ public class EndGameManager extends FixedRunnable {
 			String pName = p.getName();
 			Bukkit.broadcastMessage(ChatMessages.winner.
 					replace("%%PLAYER%%", pName).
-					replace("%%KILLS%%", "" + plugin.count.get(pName)));
+					replace("%%KILLS%%", "" + ScoreboardHandler.getKills(pName)));
 			SQL.addWin(pName);
 		}
 		else
@@ -56,7 +56,7 @@ public class EndGameManager extends FixedRunnable {
 	//<Index = 2>
 	public Player getWinner(){
 		Entry<String, Integer> highest = null;
-		for (Entry<String, Integer> e : plugin.count.entrySet()) {
+		for (Entry<String, Integer> e : ScoreboardHandler.getOnlineScores().entrySet()) {
 			if (highest == null ? true : highest.getValue() < e.getValue())
 				highest = e;
 		}

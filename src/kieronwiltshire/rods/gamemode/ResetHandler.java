@@ -56,7 +56,7 @@ public class ResetHandler extends FixedRunnable {
 				public void run() {
 					ChatMessages.msg(ChatMessages.stageThree);
 					WorldLoader.unload("lobby");
-				}}, 160);
+				}}, 60);
 		}
 		
 		ChatMessages.msg(ChatMessages.stageTwo);
@@ -67,7 +67,7 @@ public class ResetHandler extends FixedRunnable {
 				public void run() {
 					ChatMessages.msg(ChatMessages.stageFour);
 					WorldLoader.unload(Main.selectedMap);
-				}}, 300);
+				}}, 120);
 		}
 				
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
@@ -83,8 +83,7 @@ public class ResetHandler extends FixedRunnable {
 				plugin.spectators = new HashSet<String>();
 				Main.lobbyTimer = plugin.getConfig().getInt("lobby-timer");
 				Main.gameTimer = plugin.getConfig().getInt("game-timer");
-				if(plugin.count != null) 
-					plugin.count.clear();				
+				ScoreboardHandler.reset();			
 				if(plugin.spectators != null) 
 					plugin.spectators.clear();
 				plugin.startResetTimer();
@@ -92,7 +91,7 @@ public class ResetHandler extends FixedRunnable {
 				
 				
 				
-			}}, 400);	
+			}}, 300);	
 		
 	}
 	

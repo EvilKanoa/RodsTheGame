@@ -73,7 +73,6 @@ public class Main extends JavaPlugin implements Listener
 
 
 	//HASH MAP
-	HashMap<String, Integer> count = new HashMap<String, Integer>();
 	HashMap<String, String> playerClasses = new HashMap<String, String>();;
 	Set<String> spectators;
 
@@ -113,6 +112,7 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("forceend").setExecutor(cmdExec);
 		getCommand("forcesave").setExecutor(cmdExec);
 
+		ScoreboardHandler.setupBoard();
 		this.saveDefaultConfig();
 		resetHandle.pluginReset();
 		addTasks();

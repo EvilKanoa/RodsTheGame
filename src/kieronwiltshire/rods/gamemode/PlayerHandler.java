@@ -56,7 +56,12 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		String pName = p.getName();
 
 		event.setJoinMessage(ChatMessages.WHITE + pName + ChatMessages.joinMessage);
-		plugin.count.put(pName, 0);
+		
+		if (!ScoreboardHandler.isOnBoard(p))
+			ScoreboardHandler.initPlayer(p);
+		else
+			ScoreboardHandler.sendBoard(p);
+		
 		plugin.playerClasses.put(pName, "default");
 		p.setGameMode(GameMode.SURVIVAL);
 		InventoryClear.clear(p);
@@ -94,7 +99,6 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		Player p = event.getPlayer();
 		String pName = p.getName();
 		
-		plugin.count.remove(pName);
 		event.setQuitMessage(ChatMessages.WHITE + pName + ChatMessages.quitMessage);
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
@@ -104,7 +108,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 				if(plugin.lobbyBoolean == false && Bukkit.getOnlinePlayers().length < 2){
 					Main.gameTimer = 5;
 				}
-			}}, 200);
+			}}, 100);
 	}
 
 	@EventHandler(priority=EventPriority.MONITOR)
@@ -119,12 +123,12 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerDeath(PlayerDeathEvent event){
 		Player att = event.getEntity().getKiller();
 		String pName = event.getEntity().getName();
+		String aName = att.getName();
 		if(att instanceof Player && att.getEntityId() != event.getEntity().getEntityId()){
-			String aName = att.getName();	
-			plugin.count.put(aName, plugin.count.get(aName) + 1);
 			SQL.addKill(aName);
 			SQL.addMoney(aName, SQL.getMoney(pName) > SQL.getMoney(aName) ? 10 : 5);
-		}	
+			ScoreboardHandler.addKill(aName);
+		}
 		SQL.addDeath(pName);
 		event.getDrops().clear();
 	}
