@@ -75,11 +75,15 @@ public class Main extends JavaPlugin implements Listener
 	//HASH MAP
 	static HashMap<String, String> playerClasses = new HashMap<String, String>();;
 	Set<String> spectators;
+	
+	private static Main plugin;
 
 
 	//ON ENABLE <Index = 1>
 	public void onEnable(){
 
+		plugin = this;
+		
 		ClassLoader.loadFromFiles();
 		
 		lobby = new LobbyHandler(this);
@@ -270,5 +274,14 @@ public class Main extends JavaPlugin implements Listener
     public static void debug(String msg) {
     	System.out.println(ChatColor.YELLOW + "" + '[' + ChatColor.AQUA + "Debug" + ChatColor.YELLOW + "] " + ChatColor.RED + msg);
     }
+
+
+
+
+
+
+	public static Main getInstance() {
+		return plugin;
+	}
 
 }

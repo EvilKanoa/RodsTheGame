@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import ca.kanoa.RodsTwo.RodsTwo;
+import ca.kanoa.rodsthegame.gui.ItemGui;
 
 public class ClassGui implements Listener {
 
@@ -56,7 +57,7 @@ public class ClassGui implements Listener {
 			String format = ChatMessages.format;
 			String itemName = item.getItemMeta().getDisplayName();
 			String amount = "" + item.getAmount();
-			list.add(format.replace("%%ITEM%%", itemName == null ? getMaterialName(item.getType()) : itemName).replace("%%AMOUNT%%", amount));
+			list.add(format.replace("%%ITEM%%", itemName == null ? ItemGui.getMaterialName(item.getType()) : itemName).replace("%%AMOUNT%%", amount));
 		}
 		meta.setLore(list);
 		raw.setItemMeta(meta);
@@ -72,7 +73,6 @@ public class ClassGui implements Listener {
 	}
 
 	//Events
-
 	@EventHandler (priority=EventPriority.MONITOR)
 	public void onInvClose(InventoryCloseEvent event) {
 		if (event.getPlayer().getEntityId() == buyer.getEntityId()) {
@@ -95,14 +95,6 @@ public class ClassGui implements Listener {
 			else if (event.isShiftClick())
 				event.setCancelled(true);
 		}
-	}
-
-	public static String getMaterialName(Material material) {
-		StringBuilder materialName = new StringBuilder();
-		for(String c : material.toString().toLowerCase().split("_")) {
-			materialName.append(Character.toUpperCase(c.charAt(0))).append(c, 1, c.length()).append(" ");
-		}
-		return materialName.toString().trim();
 	}
 
 }
