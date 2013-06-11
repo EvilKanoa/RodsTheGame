@@ -24,6 +24,7 @@ public class ClassGui implements Listener {
 
 	private Player buyer;
 	private Inventory storeFront;
+	public static int itemID = 92;
 
 	public ClassGui(Player sender) {
 		this.buyer = sender;
@@ -34,7 +35,7 @@ public class ClassGui implements Listener {
 	private void populateStore() {
 		storeFront = Bukkit.createInventory(buyer, roundUp(sizeWithPerms(ClassLoader.classes.keySet())), ChatMessages.guiTitle);
 		for (Entry<String, ItemStack[]> cls : ClassLoader.classes.entrySet())
-			if (buyer.hasPermission("rtg.class." + cls.getKey()))
+			if (buyer.hasPermission("rtg.class." + cls.getKey()) || buyer.hasPermission("rtg.class.all"))
 				storeFront.addItem(generateItem(cls.getKey(), cls.getValue()));
 	}
 
@@ -47,7 +48,7 @@ public class ClassGui implements Listener {
 	}
 
 	private ItemStack generateItem(String name, ItemStack[] contants) {
-		ItemStack raw = new ItemStack(Material.getMaterial(36), 1);
+		ItemStack raw = new ItemStack(Material.getMaterial(itemID), 1);
 		ItemMeta meta = raw.getItemMeta();
 		meta.setDisplayName(ChatMessages.L_PURPLE + name);
 		List<String> list = new ArrayList<String>();
