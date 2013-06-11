@@ -4,18 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.Bukkit;
 
 public class StoreParser {
 
-	public static Set<Buyable> buyables;
+	public static List<Buyable> buyables;
 	private static String sz = File.separator;
 	
 	public static void loadFromFiles() {
-		buyables = new HashSet<Buyable>();
+		buyables = new ArrayList<Buyable>();
 		File folder = new File("." + sz + "plugins" + sz + "RodsTheGame" + sz + "Store");
 		if (!folder.exists())
 			folder.mkdirs();

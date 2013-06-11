@@ -16,12 +16,12 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ca.kanoa.batman.utils.WorldLoader;
-import ca.kanoa.rodsthegame.ClassExecutor;
-import ca.kanoa.rodsthegame.ClassLoader;
-import ca.kanoa.rodsthegame.ClassesHandler;
 import ca.kanoa.rodsthegame.Copier;
 import ca.kanoa.rodsthegame.ScoreboardHandler;
 import ca.kanoa.rodsthegame.WorldControlHandler;
+import ca.kanoa.rodsthegame.classes.ClassExecutor;
+import ca.kanoa.rodsthegame.classes.ClassLoader;
+import ca.kanoa.rodsthegame.classes.ClassesHandler;
 import ca.kanoa.rodsthegame.store.StoreExecutor;
 
 public class Main extends JavaPlugin implements Listener

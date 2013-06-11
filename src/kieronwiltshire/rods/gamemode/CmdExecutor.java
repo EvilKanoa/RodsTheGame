@@ -18,8 +18,8 @@ import org.bukkit.potion.PotionEffect;
 
 import ca.kanoa.batman.utils.Healer;
 import ca.kanoa.batman.utils.InventoryClear;
-import ca.kanoa.rodsthegame.ClassLoader;
 import ca.kanoa.rodsthegame.Copier;
+import ca.kanoa.rodsthegame.classes.ClassLoader;
 import ca.kanoa.rodsthegame.gui.ClickedItem;
 import ca.kanoa.rodsthegame.gui.Item;
 import ca.kanoa.rodsthegame.gui.ItemGui;
