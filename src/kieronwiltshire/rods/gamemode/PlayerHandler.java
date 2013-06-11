@@ -62,7 +62,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		else
 			ScoreboardHandler.sendBoard(p);
 		
-		plugin.playerClasses.put(pName, "default");
+		Main.playerClasses.put(pName, "default");
 		p.setGameMode(GameMode.SURVIVAL);
 		InventoryClear.clear(p);
 		p.sendMessage(" ");

@@ -81,7 +81,7 @@ public class TeleportHandler {
 	//<Index = 2>
 	public void teleportRandomSpawn(Player player){
 		
-		String checkClass = plugin.playerClasses.get(player.getName());
+		String checkClass = Main.playerClasses.get(player.getName());
 		if(checkClass.equalsIgnoreCase("default")){
 			player.sendMessage(ChatMessages.prefix + "You must choose a class first!");
 		}

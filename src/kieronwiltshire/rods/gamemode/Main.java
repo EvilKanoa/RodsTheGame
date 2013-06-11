@@ -89,7 +89,7 @@ public class Main extends JavaPlugin implements Listener
 		resetHandle = new ResetHandler(this);
 		endGame = new EndGameManager(this);
 		cmdExec = new CmdExecutor(this);
-		classesHandle = new ClassesHandler(this);
+		classesHandle = new ClassesHandler();
 		signHandle = new SignHandler(this);
 		controlHandle = new WorldControlHandler(this);
 

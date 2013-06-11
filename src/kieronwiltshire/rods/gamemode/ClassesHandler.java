@@ -6,12 +6,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class ClassesHandler {
 
-	private Main plugin;
-	public ClassesHandler(Main plugin)
-	{
-		this.plugin = plugin;
-	}
-
 
 
 	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -24,7 +18,7 @@ public class ClassesHandler {
 	@SuppressWarnings("deprecation")
 	public void customClasses(Player player){
 		String pName = player.getName();
-		String pClass = plugin.playerClasses.get(pName);
+		String pClass = Main.playerClasses.get(pName);
 
 		for (ItemStack is : ClassLoader.classes.get(pClass))
 			player.getInventory().addItem(is);
