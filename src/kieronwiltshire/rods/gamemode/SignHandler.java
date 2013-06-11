@@ -44,20 +44,11 @@ public class SignHandler implements Listener{
 					if (s.getLine(1).equalsIgnoreCase("random")) {
 						int classNum = (new Random()).nextInt(ClassLoader.classes.size());
 						String str = ClassLoader.classes.keySet().toArray(new String[0])[classNum];
-						plugin.playerClasses.put(p.getName(), str);
-						p.sendMessage(ChatMessages.chosenClass + str);
+						ClassExecutor.choseClass(p, str);
 					}
 					
 					else
-						for (String str : ClassLoader.classes.keySet())
-							if (s.getLine(1).equalsIgnoreCase(str)) {
-								if (p.hasPermission("rtg.class." + str) || p.hasPermission("rtg.class.all")) {
-									plugin.playerClasses.put(p.getName(), str);
-									p.sendMessage(ChatMessages.chosenClass + str);
-								}
-								else
-									p.sendMessage(ChatMessages.noClassPermission);
-							}
+						ClassExecutor.choseClass(p, s.getLine(1));
 
 				}	
 			}

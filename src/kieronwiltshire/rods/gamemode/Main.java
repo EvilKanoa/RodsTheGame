@@ -73,7 +73,7 @@ public class Main extends JavaPlugin implements Listener
 
 
 	//HASH MAP
-	HashMap<String, String> playerClasses = new HashMap<String, String>();;
+	static HashMap<String, String> playerClasses = new HashMap<String, String>();;
 	Set<String> spectators;
 
 
@@ -111,6 +111,7 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("worldteleport").setExecutor(cmdExec);
 		getCommand("forceend").setExecutor(cmdExec);
 		getCommand("forcesave").setExecutor(cmdExec);
+		getCommand("class").setExecutor(new ClassExecutor());
 
 		ScoreboardHandler.setupBoard();
 		this.saveDefaultConfig();

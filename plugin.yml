@@ -36,6 +36,8 @@ permissions:
         default: op
     rtg.forcesave:
         default: op
+    rtg.class:
+        default: op
 commands:
     import:
         description: Imports worlds into the config.
@@ -99,4 +101,9 @@ commands:
         description: Force saves a map.
         permission: rtg.forcesave
         aliases: [force-save]
+        permission-message: You don't have permission!
+    class:
+        description: Chose a class with a command and GUI.
+        permission: rtg.class
+        aliases: [gui, chose, g]
         permission-message: You don't have permission!
