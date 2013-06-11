@@ -50,7 +50,7 @@ public class ClassExecutor implements CommandExecutor {
 	 * @return if the class was found
 	 */
 	public static boolean choseClass(Player player, String classStr) {
-		if (player.hasPermission("rtg.class." + classStr)) {
+		if (player.hasPermission("rtg.class." + classStr) || player.hasPermission("rtg.class.all")) {
 			for (String str : ClassLoader.classes.keySet())
 				if (str.equalsIgnoreCase(classStr)) {
 					Main.playerClasses.put(player.getName(), str);

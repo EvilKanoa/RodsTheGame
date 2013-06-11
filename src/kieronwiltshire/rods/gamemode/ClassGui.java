@@ -41,7 +41,7 @@ public class ClassGui implements Listener {
 	private int sizeWithPerms(Set<String> set) {
 		int i = 0;
 		for (String str : set)
-			if (buyer.hasPermission("rtg.class." + str.toLowerCase()))
+			if (buyer.hasPermission("rtg.class." + str.toLowerCase()) || buyer.hasPermission("rtg.class.all"))
 				i++;
 		return i;
 	}
