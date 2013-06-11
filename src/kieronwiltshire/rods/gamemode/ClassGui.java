@@ -24,7 +24,7 @@ public class ClassGui implements Listener {
 
 	private Player buyer;
 	private Inventory storeFront;
-	public static int itemID = 92;
+	public static int itemID = 36;
 
 	public ClassGui(Player sender) {
 		this.buyer = sender;
