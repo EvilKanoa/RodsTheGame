@@ -115,6 +115,7 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("worldteleport").setExecutor(cmdExec);
 		getCommand("forceend").setExecutor(cmdExec);
 		getCommand("forcesave").setExecutor(cmdExec);
+		getCommand("admin").setExecutor(cmdExec);
 		getCommand("class").setExecutor(new ClassExecutor());
 
 		ScoreboardHandler.setupBoard();

@@ -4,6 +4,8 @@ main: kieronwiltshire.rods.gamemode.Main
 authors: [Kieron, KraZ, Kanoa, 12323op]
 depend: [LightningRods 2, MCC API]
 permissions:
+    rtg.admin:
+        default: op
     rtg.import:
         default: op
     rtg.fs:
@@ -107,3 +109,8 @@ commands:
     class:
         description: Chose a class with a command and GUI.
         aliases: [gui, chose, g]
+    admin:
+        description: Opens up the admin UI.
+        permission: rtg.admin
+        aliases: [admingui, adminui, aui, agui]
+        permission-message: You don't have permission!

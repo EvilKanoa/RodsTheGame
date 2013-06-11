@@ -1,18 +1,26 @@
 package kieronwiltshire.rods.gamemode;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import ca.kanoa.batman.utils.Healer;
 import ca.kanoa.batman.utils.InventoryClear;
+import ca.kanoa.rodsthegame.gui.ClickedItem;
+import ca.kanoa.rodsthegame.gui.Item;
+import ca.kanoa.rodsthegame.gui.ItemGui;
 
 public class CmdExecutor implements CommandExecutor{
 
@@ -248,6 +256,24 @@ public class CmdExecutor implements CommandExecutor{
 					}
 
 				}
+			}
+			else if(cmd.getName().equalsIgnoreCase("admin")) {
+				new ItemGui(player, ChatColor.RED + "Admin Panel", 1){
+
+					@Override
+					public List<ItemStack> populateStore() {
+						Item stopLobbyTimer = new Item(ChatColor.BLUE + "Stop Lobby Timer", new String[]{"Stops the current lobby timer.", ChatColor.RED + "/stoplobbytimer"}, Material.ANVIL);
+						Item forceStart = new Item(ChatColor.BLUE + "Force Start", new String[]{"Will force a game in lobby to start.", ChatColor.RED + "/force-start"}, Material.DIAMOND_PICKAXE);
+						Item forceRestart = new Item(ChatColor.BLUE + "Force Restart", new String[]{"Will force a game to be restarted.", ChatColor.RED + "/force-restart"}, Material.WORKBENCH);
+						Item forceEnd = new Item(ChatColor.BLUE + "Force End", new String[]{"Sets the games timer to 5 seconds.", ChatColor.RED + "/force-end"}, Material.TNT);
+						return Arrays.asList(new ItemStack[]{null, stopLobbyTimer.getStack(), null, forceStart.getStack(), null, forceRestart.getStack(), null, forceEnd.getStack(), null});
+					}
+
+					@Override
+					public void itemClicked(ClickedItem item) {
+						String cmd = item.getLore().get(1).replace(ChatColor.RED.toString(), "").substring(1);
+						getBuyer().performCommand(cmd);
+					}}.show();
 			}
 
 		}
