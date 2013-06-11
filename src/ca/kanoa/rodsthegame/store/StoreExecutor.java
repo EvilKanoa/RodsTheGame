@@ -1,5 +1,7 @@
 package ca.kanoa.rodsthegame.store;
 
+import java.util.List;
+
 import kieronwiltshire.rods.gamemode.ChatMessages;
 import kieronwiltshire.rods.gamemode.Main;
 
@@ -8,8 +10,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import ca.kanoa.batman.utils.SQL;
+import ca.kanoa.rodsthegame.gui.ClickedItem;
+import ca.kanoa.rodsthegame.gui.ItemGui;
 
 public class StoreExecutor implements CommandExecutor {
 
@@ -29,6 +34,26 @@ public class StoreExecutor implements CommandExecutor {
 		
 		if (args.length == 0) {
 			//Open GUI
+			new ItemGui(player, ChatMessages.storeTitle, ItemGui.roundUp(Buyable.items.size() /* TODO Added perm checker for size*/)){
+
+				@Override
+				public List<ItemStack> populateStore() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public void itemClicked(ClickedItem item) {
+					
+					if (item.getName().toLowerCase().contains(ChatMessages.RED + "close")){
+						close();
+						return;
+					}
+					
+					String cmd = "store " + item.getName();
+					getBuyer().performCommand(cmd);
+					close();
+				}}.show();
 		}
 		else {
 			StringBuilder sb = new StringBuilder();

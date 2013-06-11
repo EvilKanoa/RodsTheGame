@@ -131,8 +131,6 @@ public class ChatMessages {
 	public static String noClassGuiPerms = prefix + "You don't have permission to use the GUI!";
 	public static String classNotFound = prefix + "That class does not exist! (yet)";
 	public static String guiTitle = "Classes";
-	public static String itemNotfound = prefix + "Unknown item!";
-	public static String itemBought = prefix + "You just bought the %%ITEM%% for %%COST%% XP!";
 	
 	
 	
@@ -151,6 +149,9 @@ public class ChatMessages {
 	
 	//STORE
 	public static String format = GOLD + "%%ITEM%%" + YELLOW + " X " + RED + "%%AMOUNT%%";
+	public static String itemNotfound = prefix + "Unknown item!";
+	public static String itemBought = prefix + "You just bought the %%ITEM%% for %%COST%% XP!";
+	public static String storeTitle = L_PURPLE + "Store";
 	
 	
 }
