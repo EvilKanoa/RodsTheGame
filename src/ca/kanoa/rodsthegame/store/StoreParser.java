@@ -5,23 +5,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.Bukkit;
 
 public class StoreParser {
 
-	public static List<Buyable> buyables;
 	private static String sz = File.separator;
 	
 	public static void loadFromFiles() {
-		buyables = new ArrayList<Buyable>();
+		Buyable.items = new ArrayList<Buyable>();
 		File folder = new File("." + sz + "plugins" + sz + "RodsTheGame" + sz + "Store");
 		if (!folder.exists())
 			folder.mkdirs();
 		for (File f : folder.listFiles())
 			if (f.isFile() && f.getName().endsWith(".txt"))
 				try {
-					buyables.add(Buyable.parseString(readFile(f)));
+					Buyable.items.add(Buyable.parseString(readFile(f)));
 				} catch (BuyableFormatException e) {
 					Bukkit.getLogger().warning("Error (" + e.getMessage() + ") while loading buyable: " + f.getName());
 				}

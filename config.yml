@@ -1,3 +1,4 @@
+permission-command: /pex user {player} add {node}
 lobby-timer: 60
 game-timer: 600
 max-spawns:

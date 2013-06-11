@@ -38,7 +38,7 @@ public class ClassExecutor implements CommandExecutor {
 		}
 		
 		else {
-			sender.sendMessage(args.length == 0 ? ChatMessages.noClassGuiPerms : ChatMessages.noClassCmdPerms);
+			sender.sendMessage(args.length == 0 ? ChatMessages.noClassGuiPerms : ChatMessages.noCmdPerms);
 		}
 		
 		return true;

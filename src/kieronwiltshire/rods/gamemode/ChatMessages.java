@@ -127,10 +127,12 @@ public class ChatMessages {
 	public static String saved = prefix + "World saved";
 	public static String noOnlineWin = prefix + "There is no-one online to win!";
 	public static String scoreboardTitle = L_PURPLE + "Score";
-	public static String noClassCmdPerms = prefix + "You don't have permission to use that command!";
+	public static String noCmdPerms = prefix + "You don't have permission to use that command!";
 	public static String noClassGuiPerms = prefix + "You don't have permission to use the GUI!";
 	public static String classNotFound = prefix + "That class does not exist! (yet)";
 	public static String guiTitle = "Classes";
+	public static String itemNotfound = prefix + "Unknown item!";
+	public static String itemBought = prefix + "You just bought the %%ITEM%% for %%COST%% XP!";
 	
 	
 	

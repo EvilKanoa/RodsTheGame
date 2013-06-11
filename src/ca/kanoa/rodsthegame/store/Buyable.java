@@ -1,9 +1,14 @@
 package ca.kanoa.rodsthegame.store;
 
+import java.util.List;
+
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
 public class Buyable {
 
+	public static List<Buyable> items;
+	
 	private final Permission node;
 	private String className;
 	private String description;
@@ -11,17 +16,17 @@ public class Buyable {
 
 	public Buyable(Permission node, String className, String description, int cost) {
 		this.node = node;
-		this.setClassName(className);
+		this.setName(className);
 		this.setDescription(description);
 		this.setCost(cost);
 	}
 
-	public String getClassName() {
+	public String getName() {
 		return className;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setName(String name) {
+		this.className = name;
 	}
 
 	public String getDescription() {
@@ -86,6 +91,24 @@ public class Buyable {
 
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	
+	public static boolean isForSale(String name) {
+		for (Buyable b : items)
+			if (b.getName().equalsIgnoreCase(name))
+				return true;
+		return false;
+	}
+	
+	public static boolean hasPermissionFor(Buyable item, Player player) {
+		return player.hasPermission(item.getNode());
+	}
+	
+	public static Buyable getBuyable(String name) {
+		for (Buyable item : items)
+			if (item.getName().equalsIgnoreCase(name))
+				return item;
+		return null;
 	}
 
 }
