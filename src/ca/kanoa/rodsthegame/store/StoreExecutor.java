@@ -9,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ca.kanoa.batman.utils.SQL;
+
 public class StoreExecutor implements CommandExecutor {
 
 	@Override
@@ -55,7 +57,7 @@ public class StoreExecutor implements CommandExecutor {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				//remove sql money: SQL.removeMoney(item.getCost());
+				SQL.removeMoney(player.getName(), item.getCost());
 			}
 			
 			sender.sendMessage(ChatMessages.itemBought.
