@@ -77,7 +77,7 @@ public class CmdExecutor implements CommandExecutor{
 		}
 
 		else if(cmd.getName().equalsIgnoreCase("forceend")){
-			if(plugin.lobbyBoolean == false && plugin.resetMode == false){
+			if(Main.lobbyBoolean == false && plugin.resetMode == false){
 				Bukkit.broadcastMessage(ChatMessages.prefix + "Game force ended by a staff member!");
 				Main.gameTimer = 5;
 			}
@@ -131,7 +131,7 @@ public class CmdExecutor implements CommandExecutor{
 		}
 
 		else if (cmd.getName().equalsIgnoreCase("map"))
-			if (plugin.lobbyBoolean)
+			if (Main.lobbyBoolean)
 				sender.sendMessage(ChatMessages.selectedMapIs.replace("%%MAP%%", "Lobby"));
 			else
 				sender.sendMessage(ChatMessages.selectedMapIs.replace("%%MAP%%", Main.selectedMap == null ? "null" : Main.selectedMap));
@@ -216,7 +216,7 @@ public class CmdExecutor implements CommandExecutor{
 
 				Location spawn = new Location(world, x1, y1, z1, yaw1, pitch1);
 
-				if (plugin.lobbyBoolean) {
+				if (Main.lobbyBoolean) {
 					player.sendMessage(ChatMessages.noLobbyRespawn);
 					return true;
 				}

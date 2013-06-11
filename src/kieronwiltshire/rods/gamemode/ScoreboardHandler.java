@@ -36,7 +36,6 @@ public class ScoreboardHandler {
 	}
 	
 	public static void initPlayer(Player player) {
-		player.setScoreboard(board);
 		score.getScore(player).setScore(1);
 		score.getScore(player).setScore(0);
 	}
@@ -71,6 +70,10 @@ public class ScoreboardHandler {
 	public static void reset() {
 		for (OfflinePlayer player : board.getPlayers())
 			board.resetScores(player);
+	}
+	
+	public static void hide(Player player) {
+		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 	
 }

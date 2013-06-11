@@ -60,7 +60,10 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		if (!ScoreboardHandler.isOnBoard(p))
 			ScoreboardHandler.initPlayer(p);
 		else
-			ScoreboardHandler.sendBoard(p);
+			if (Main.lobbyBoolean)
+				ScoreboardHandler.hide(p);
+			else
+				ScoreboardHandler.sendBoard(p);
 		
 		Main.playerClasses.put(pName, "default");
 		p.setGameMode(GameMode.SURVIVAL);
@@ -73,7 +76,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		p.sendMessage(ChatMessages.alphaTestMessage2);
 		p.sendMessage(" ");
 		Healer.simulateRespawn(p);
-		if(plugin.lobbyBoolean == true){
+		if(Main.lobbyBoolean == true){
 			plugin.teleportHandle.teleportServerLobby(p);
 		}
 		else {
@@ -105,7 +108,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 
 			@Override
 			public void run() {
-				if(plugin.lobbyBoolean == false && Bukkit.getOnlinePlayers().length < 2){
+				if(Main.lobbyBoolean == false && Bukkit.getOnlinePlayers().length < 2){
 					Main.gameTimer = 5;
 				}
 			}}, 100);
@@ -137,7 +140,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerHungerLoss(FoodLevelChangeEvent e){
 		e.setCancelled(true);
 		if (e.getEntity() instanceof Player)
-			((Player)e.getEntity()).setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
+			((Player)e.getEntity()).setFoodLevel(Main.lobbyBoolean ? 20 : 16);
 	}
 
 
@@ -175,7 +178,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		if(ent instanceof Player){
 			if(att instanceof Player){
 				if(plugin.spectators.contains(((Player) att).getName())) event.setCancelled(true);
-				if(plugin.lobbyBoolean) event.setCancelled(true);
+				if(Main.lobbyBoolean) event.setCancelled(true);
 			}
 		}
 		else{
@@ -204,7 +207,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		Entity ent = event.getEntity();
 
 		if(ent instanceof Player){
-			if(plugin.lobbyBoolean) event.setCancelled(true);
+			if(Main.lobbyBoolean) event.setCancelled(true);
 		}
 		else {
 
@@ -216,7 +219,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	@Override
 	public void run() {
 		for (Player p : Bukkit.getOnlinePlayers())
-			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
+			p.setFoodLevel(Main.lobbyBoolean ? 20 : 16);
 	}
 
 }

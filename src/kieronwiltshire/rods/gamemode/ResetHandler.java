@@ -87,7 +87,7 @@ public class ResetHandler extends FixedRunnable {
 				if(plugin.spectators != null) 
 					plugin.spectators.clear();
 				plugin.startResetTimer();
-				plugin.lobbyBoolean = true;
+				Main.lobbyBoolean = true;
 				
 				
 				

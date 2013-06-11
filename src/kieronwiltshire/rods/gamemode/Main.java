@@ -52,7 +52,7 @@ public class Main extends JavaPlugin implements Listener
 	
 	public boolean gameEnded = true;
 
-	public boolean lobbyBoolean;
+	public static boolean lobbyBoolean;
 	public boolean resetMode;
 
 	public FileConfiguration config;
@@ -260,7 +260,7 @@ public class Main extends JavaPlugin implements Listener
 		String mode;
 		if (this.resetMode)
 			mode = ChatMessages.pingResetMode;
-		else if (this.lobbyBoolean)
+		else if (Main.lobbyBoolean)
 			mode = ChatMessages.pingLobbyMode;
 		else
 			mode = ChatMessages.pingGameMode;

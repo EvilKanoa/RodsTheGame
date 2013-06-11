@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class LobbyHandler extends FixedRunnable{
 
@@ -91,15 +92,17 @@ public class LobbyHandler extends FixedRunnable{
 		if(Main.lobbyTimer == 0){
 
 			if (Bukkit.getOnlinePlayers().length >= Main.neededPlayers) {
-				plugin.lobbyBoolean = false;
+				Main.lobbyBoolean = false;
 				plugin.startGameTimer();
 				plugin.teleportHandle.teleportAllToMap();
 				plugin.game.enabled = true;
 				Main.neededPlayers = 2;
 				stopTimer();
+				for (Player player : Bukkit.getOnlinePlayers())
+					ScoreboardHandler.sendBoard(player);
 			}
 			else {
-				Main.lobbyTimer = 305;
+				Main.lobbyTimer = 302;
 				Bukkit.broadcastMessage(ChatMessages.tooFewPlayers.replace("%%AMOUNT%%", "" + Main.neededPlayers));
 			}
 

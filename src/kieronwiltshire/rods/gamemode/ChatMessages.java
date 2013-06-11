@@ -130,6 +130,7 @@ public class ChatMessages {
 	public static String noClassCmdPerms = prefix + "You don't have permission to use that command!";
 	public static String noClassGuiPerms = prefix + "You don't have permission to use the GUI!";
 	public static String classNotFound = prefix + "That class does not exist! (yet)";
+	public static String guiTitle = "Classes";
 	
 	
 	
@@ -142,6 +143,12 @@ public class ChatMessages {
 	public static String stageFour = prefix + "Entering server reset stage " + RED + "four" + ".";
 	public static String stageFive = prefix + "Entering server reset stage " + RED + "five" + ".";
 	public static String stageSix = prefix + "Entering server reset stage " + RED + "six" + ".";
+	
+	
+	
+	
+	//STORE
+	public static String format = GOLD + "%%ITEM%%" + YELLOW + " X " + RED + "%%AMOUNT%%";
 	
 	
 }

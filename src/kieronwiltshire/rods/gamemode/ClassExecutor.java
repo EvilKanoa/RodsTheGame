@@ -14,12 +14,18 @@ public class ClassExecutor implements CommandExecutor {
 			sender.sendMessage("Player only command!");
 			return true;
 		}
+		else if (Main.lobbyBoolean) {
+			sender.sendMessage(ChatMessages.prefix + "Cannot use " + ChatMessages.D_RED + "/class" + ChatMessages.L_PURPLE + " in lobby!");
+			return true;
+		}
+			
 		
 		Player player = (Player) sender;
 		
 		if (args.length == 0 && sender.hasPermission("rtg.class.gui")) {
-			
+			new ClassGui(player).show();
 		}
+		
 		else if (args.length >= 1 && sender.hasPermission("rtg.class.cmd")) {
 			StringBuilder sb = new StringBuilder(args[0]);
 			for (int i = 1; i < args.length; i++)
@@ -27,9 +33,11 @@ public class ClassExecutor implements CommandExecutor {
 			if (!choseClass(player, sb.toString()))
 				player.sendMessage(ChatMessages.classNotFound);
 		}
+		
 		else {
 			sender.sendMessage(args.length == 0 ? ChatMessages.noClassGuiPerms : ChatMessages.noClassCmdPerms);
 		}
+		
 		return true;
 	}
 

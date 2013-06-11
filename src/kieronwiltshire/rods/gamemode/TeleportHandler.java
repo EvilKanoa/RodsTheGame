@@ -93,7 +93,7 @@ public class TeleportHandler {
 			Random randomNum = new Random();
 			int getSpawn = randomNum.nextInt(maxSpawnLimit);
 			player.setHealth(20);
-			player.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
+			player.setFoodLevel(Main.lobbyBoolean ? 20 : 16);
 			
 			if(plugin.getConfig().contains("maps." + Main.selectedMap + ".spawns." + getSpawn)){
 			
@@ -125,7 +125,7 @@ public class TeleportHandler {
 	public void teleportServerLobby(Player p) {
 		try{
 			p.setHealth(20);
-			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
+			p.setFoodLevel(Main.lobbyBoolean ? 20 : 16);
 			
 			double x = plugin.getConfig().getInt("lobby.x");
 			double y = plugin.getConfig().getInt("lobby.y");
@@ -165,7 +165,7 @@ public class TeleportHandler {
 			p.teleport(spawn);
 			
 			p.setHealth(20);
-			p.setFoodLevel(plugin.lobbyBoolean ? 20 : 16);
+			p.setFoodLevel(Main.lobbyBoolean ? 20 : 16);
 			
 		} catch (NullPointerException e){
 			System.out.println("Map spawn not found in config. teleporting to:");
