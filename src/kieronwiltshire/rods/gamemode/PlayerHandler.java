@@ -103,18 +103,23 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player p = event.getPlayer();
-		String pName = p.getName();
+		final String pName = p.getName();
 		
 		event.setQuitMessage(ChatMessages.WHITE + pName + ChatMessages.quitMessage);
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-
 			@Override
 			public void run() {
 				if(Main.lobbyBoolean == false && Bukkit.getOnlinePlayers().length < 2){
 					Main.gameTimer = 5;
 				}
 			}}, 100);
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable(){
+			@Override
+			public void run() {
+				if (!Bukkit.getOfflinePlayer(pName).isOnline())
+					ScoreboardHandler.removePlayer(pName);
+			}}, 300L);
 	}
 
 	@EventHandler(priority=EventPriority.MONITOR)

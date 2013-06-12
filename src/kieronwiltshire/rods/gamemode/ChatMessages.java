@@ -113,7 +113,7 @@ public class ChatMessages {
 	//OTHER MESSAGES TODO FROM KANOA
 	public static String tooFewPlayers = prefix + "There needs to be %%AMOUNT%% or more players online to start the game!";
 	public static String reloadClasses = prefix + "Reloading classes from files.";
-	public static String noClassPermission = prefix + "You don't have permission for that class!";
+	public static String noClassPermission = prefix + "You have not bought that class, use /store to buy it!";
 	public static String serverClosingKick = prefix + "Server shutting down, rejoin!";
 	public static String selectedMapIs = prefix + "The selected map is: " + D_PURPLE + "%%MAP%%";
 	public static String resetDone = prefix + "Server reset complete, player may rejoin now.";
@@ -153,7 +153,7 @@ public class ChatMessages {
 	public static String itemBought = prefix + "You just bought the %%ITEM%% for %%COST%% XP!";
 	public static String storeTitle = BLUE + "Store";
 	public static String alreadyOwnClass = prefix + "You already own that!";
-	public static String noMoneyToBuy = prefix + "You don't have the needed XP!";
+	public static String noMoneyToBuy = prefix + "You don't have enough XP!";
 	
 	
 }

@@ -33,6 +33,11 @@ public class ScoreboardHandler {
 		score.getScore(player).setScore(kills);
 	}
 	
+	public static void removePlayer(String name) {
+		OfflinePlayer player = Bukkit.getOfflinePlayer(name);
+		board.resetScores(player);
+	}
+	
 	public static int getKills(String playerStr) {
 		return score.getScore(Bukkit.getOfflinePlayer(playerStr)).getScore();
 	}

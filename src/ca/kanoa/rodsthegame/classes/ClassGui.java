@@ -92,11 +92,16 @@ public class ClassGui implements Listener {
 					is.getItemMeta().getDisplayName().equals(ChatMessages.L_PURPLE + item.getKey())) {
 						ClassExecutor.choseClass(buyer, item.getKey());
 						event.setCancelled(true);
+						close();
 					}
 			}
 			else if (event.isShiftClick())
 				event.setCancelled(true);
 		}
+	}
+
+	private void close() {
+		buyer.closeInventory();
 	}
 
 }
