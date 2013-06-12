@@ -58,8 +58,10 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 
 		event.setJoinMessage(ChatMessages.WHITE + pName + ChatMessages.joinMessage);
 		
-		if (!ScoreboardHandler.isOnBoard(p))
+		if (!ScoreboardHandler.isOnBoard(p)) {
 			ScoreboardHandler.initPlayer(p);
+			ScoreboardHandler.sendBoard(p);
+		}
 		else
 			if (Main.lobbyBoolean)
 				ScoreboardHandler.hide(p);
