@@ -22,6 +22,7 @@ import ca.kanoa.rodsthegame.ClassesHandler;
 import ca.kanoa.rodsthegame.Copier;
 import ca.kanoa.rodsthegame.ScoreboardHandler;
 import ca.kanoa.rodsthegame.WorldControlHandler;
+import ca.kanoa.rodsthegame.store.StoreExecutor;
 
 public class Main extends JavaPlugin implements Listener
 {
@@ -123,6 +124,7 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("forcesave").setExecutor(cmdExec);
 		getCommand("admin").setExecutor(cmdExec);
 		getCommand("class").setExecutor(new ClassExecutor());
+		getCommand("store").setExecutor(new StoreExecutor());
 
 		ScoreboardHandler.setupBoard();
 		this.saveDefaultConfig();

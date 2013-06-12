@@ -42,6 +42,10 @@ permissions:
         default: op
     rtg.class.gui:
         default: op
+    rtg.store:
+        default: op
+    rtg.buy.all:
+        default: false
 commands:
     import:
         description: Imports worlds into the config.
@@ -113,4 +117,9 @@ commands:
         description: Opens up the admin UI.
         permission: rtg.admin
         aliases: [admingui, adminui, aui, agui]
+        permission-message: You don't have permission!
+    store:
+        description: Allows access to the class store.
+        permission: rtg.store
+        aliases: [buy, shop, new]
         permission-message: You don't have permission!
