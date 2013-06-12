@@ -39,6 +39,7 @@ public class EndGameManager extends FixedRunnable {
 					replace("%%PLAYER%%", pName).
 					replace("%%KILLS%%", "" + ScoreboardHandler.getKills(pName)));
 			SQL.addWin(pName);
+			SQL.addMoney(pName, 50);
 		}
 		else
 			Bukkit.broadcastMessage(ChatMessages.noOnlineWin);

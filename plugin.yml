@@ -44,8 +44,6 @@ permissions:
         default: op
     rtg.store:
         default: op
-    rtg.buy.all:
-        default: false
 commands:
     import:
         description: Imports worlds into the config.

@@ -273,8 +273,10 @@ public class CmdExecutor implements CommandExecutor{
 
 					@Override
 					public void itemClicked(ClickedItem item) {
-						String cmd = item.getLore().get(1).replace(ChatColor.RED.toString(), "").substring(1);
-						getBuyer().performCommand(cmd);
+						try {
+							String cmd = item.getLore().get(1).replace(ChatColor.RED.toString(), "").substring(1);
+							getBuyer().performCommand(cmd);
+						} catch (Exception e){}
 					}}.show();
 			}
 

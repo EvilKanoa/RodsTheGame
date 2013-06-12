@@ -1,11 +1,14 @@
 package ca.kanoa.rodsthegame.store;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kieronwiltshire.rods.gamemode.ChatMessages;
 import kieronwiltshire.rods.gamemode.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import ca.kanoa.batman.utils.SQL;
 import ca.kanoa.rodsthegame.gui.ClickedItem;
+import ca.kanoa.rodsthegame.gui.Item;
 import ca.kanoa.rodsthegame.gui.ItemGui;
 
 public class StoreExecutor implements CommandExecutor {
@@ -34,12 +38,21 @@ public class StoreExecutor implements CommandExecutor {
 		
 		if (args.length == 0) {
 			//Open GUI
-			new ItemGui(player, ChatMessages.storeTitle, ItemGui.roundUp(Buyable.items.size() /* TODO Added perm checker for size*/)){
+			new ItemGui(player, ChatMessages.storeTitle, ItemGui.roundUp(Buyable.getCount(player) + 1) / 9){
 
 				@Override
 				public List<ItemStack> populateStore() {
-					// TODO Auto-generated method stub
-					return null;
+					List<ItemStack> list = new ArrayList<ItemStack>();
+					for (Buyable b : Buyable.items)
+						if (!Buyable.hasPermissionFor(b, getBuyer())) 
+							list.add((new Item(ChatColor.LIGHT_PURPLE + b.getName(), new String[]
+									{ChatColor.DARK_AQUA + "Cost: " + ChatColor.RED + b.getCost(), b.getDescription()}, 
+									b.getLook())).getStack());
+					while (list.size() + 1 < getInventory().getSize())
+						list.add(null);
+					list.add((new Item("" + ChatColor.BOLD + ChatColor.UNDERLINE + ChatColor.RED + "Close", Material.TNT)).getStack());
+			
+					return list;
 				}
 
 				@Override
@@ -50,7 +63,7 @@ public class StoreExecutor implements CommandExecutor {
 						return;
 					}
 					
-					String cmd = "store " + item.getName();
+					String cmd = "store " + item.getName().replace(ChatColor.RESET + "", "");
 					getBuyer().performCommand(cmd);
 					close();
 				}}.show();
@@ -67,12 +80,23 @@ public class StoreExecutor implements CommandExecutor {
 			}
 			
 			Buyable item = Buyable.getBuyable(itemName);
+			
+			if (Buyable.hasPermissionFor(item, player)) {
+				player.sendMessage(ChatMessages.alreadyOwnClass);
+				return true;
+			}
+			
+			else if (SQL.getMoney(player.getName()) < item.getCost()) {
+				player.sendMessage(ChatMessages.noMoneyToBuy);
+				return true;
+			}
+			
 			String cmd = Main.getInstance().getConfig().
 					getString("permission-command").toLowerCase().
 					replace("{player}", player.getName()).
 					replace("%%player%%", player.getName()).
-					replace("{node}", item.getNode().toString()).
-					replace("%%node%%", item.getNode().toString()).
+					replace("{node}", item.getNodeString()).
+					replace("%%node%%", item.getNodeString()).
 					trim();
 			if (cmd.startsWith("/"))
 				cmd = cmd.substring(1);

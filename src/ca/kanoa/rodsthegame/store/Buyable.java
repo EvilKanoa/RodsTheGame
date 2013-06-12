@@ -2,6 +2,7 @@ package ca.kanoa.rodsthegame.store;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -10,15 +11,19 @@ public class Buyable {
 	public static List<Buyable> items;
 	
 	private final Permission node;
+	private final String nodeStr;
 	private String className;
 	private String description;
 	private int cost;
+	private Material look;
 
-	public Buyable(Permission node, String className, String description, int cost) {
-		this.node = node;
+	public Buyable(String node, String className, String description, int cost, Material look) {
+		this.node = new Permission(node);
+		this.nodeStr = node;
 		this.setName(className);
 		this.setDescription(description);
 		this.setCost(cost);
+		this.setLook(look);
 	}
 
 	public String getName() {
@@ -40,12 +45,17 @@ public class Buyable {
 	public Permission getNode() {
 		return node;
 	}
+	
+	public String getNodeString() {
+		return nodeStr;
+	}
 
 	public static Buyable parseString(String fileStr) throws BuyableFormatException {
 		String[] lines = fileStr.split("\n");
 		String perm = null;
 		String name = null;
 		String desc = null;
+		int mat = -1;
 		int price = -1;
 		for (String str : lines) {
 			if (str.toLowerCase().startsWith("node:")) 
@@ -59,7 +69,18 @@ public class Buyable {
 
 			else if (str.toLowerCase().startsWith("cost:"))
 				try {
-					price = Integer.parseInt(str.replace("cost:", "").replace("xp", "").replace("exp", "").replace(" ", "").trim());
+					price = Integer.parseInt(str.toLowerCase().replace("cost:", "").replace("xp", "").replace("exp", "").replace(" ", "").trim());
+				} catch (NumberFormatException e) {
+					try {
+						throw new BuyableFormatException(str + " is not a number!");
+					} catch (BuyableFormatException e1) {
+						e1.printStackTrace();
+					}
+				}
+			
+			else if (str.toLowerCase().startsWith("look:"))
+				try {
+					mat = Integer.parseInt(str.toLowerCase().replace("look:", "").replace("mat", "").replace("material", "").replace(" ", "").trim());
 				} catch (NumberFormatException e) {
 					try {
 						throw new BuyableFormatException(str + " is not a number!");
@@ -75,14 +96,14 @@ public class Buyable {
 					e.printStackTrace();
 				}
 		}
-		if (perm == null || name == null || desc == null || price == -1)
+		if (perm == null || name == null || desc == null || price == -1 || mat == -1)
 			try {
 				throw new BuyableFormatException("all lines");
 			} catch (BuyableFormatException e) {
 				e.printStackTrace();
 				throw new BuyableFormatException("all lines");
 			}
-		return new Buyable(new Permission(perm), name, desc, price);
+		return new Buyable(perm, name, desc, price, Material.getMaterial(mat));
 	}
 
 	public int getCost() {
@@ -101,7 +122,7 @@ public class Buyable {
 	}
 	
 	public static boolean hasPermissionFor(Buyable item, Player player) {
-		return player.hasPermission(item.getNode());
+		return player.hasPermission(item.getNodeString());
 	}
 	
 	public static Buyable getBuyable(String name) {
@@ -109,6 +130,22 @@ public class Buyable {
 			if (item.getName().equalsIgnoreCase(name))
 				return item;
 		return null;
+	}
+	
+	public static int getCount(Player player) {
+		int i = 0;
+		for (Buyable b : items)
+			if (!Buyable.hasPermissionFor(b, player))
+				i++;
+		return i;
+	}
+
+	public Material getLook() {
+		return look;
+	}
+
+	public void setLook(Material look) {
+		this.look = look;
 	}
 
 }

@@ -23,6 +23,7 @@ import ca.kanoa.rodsthegame.classes.ClassExecutor;
 import ca.kanoa.rodsthegame.classes.ClassLoader;
 import ca.kanoa.rodsthegame.classes.ClassesHandler;
 import ca.kanoa.rodsthegame.store.StoreExecutor;
+import ca.kanoa.rodsthegame.store.StoreParser;
 
 public class Main extends JavaPlugin implements Listener
 {
@@ -92,6 +93,7 @@ public class Main extends JavaPlugin implements Listener
 		plugin = this;
 		
 		ClassLoader.loadFromFiles();
+		StoreParser.loadFromFiles();
 		
 		lobby = new LobbyHandler(this);
 		playerHandle = new PlayerHandler(this);

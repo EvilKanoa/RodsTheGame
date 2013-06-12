@@ -37,7 +37,7 @@ public class ClickedItem {
 	}
 	
 	public List<String> getLore() {
-		if (item.getItemMeta().getLore() != null)
+		if (item != null && item.getItemMeta() != null && item.getItemMeta().getLore() != null)
 			return item.getItemMeta().getLore();
 		else
 			return new ArrayList<String>();
