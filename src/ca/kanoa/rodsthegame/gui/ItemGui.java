@@ -41,6 +41,11 @@ public abstract class ItemGui implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
 	}
 
+	/**
+	 * Rounds any number up to a multiply of 9
+	 * @param n The number to be rounded up
+	 * @return A multiply of number (higher then 'n')
+	 */
 	public static int roundUp(int n) {
 		return ((n + 9 - 1) / 9) * 9;
 	}
@@ -51,7 +56,19 @@ public abstract class ItemGui implements Listener {
 	public void show() {
 		buyer.openInventory(storeFront);
 	}
+	
+	/**
+	 * Closes the store inventory
+	 */
+	public void close() {
+		buyer.closeInventory();
+	}
 
+	/**
+	 * Converts a material into a human readable string
+	 * @param material The material you want to be changed
+	 * @return The human readable string of the material
+	 */
 	public static String getMaterialName(Material material) {
 		StringBuilder materialName = new StringBuilder();
 		for(String c : material.toString().toLowerCase().split("_")) {
@@ -60,8 +77,20 @@ public abstract class ItemGui implements Listener {
 		return materialName.toString().trim();
 	}
 	
+	/**
+	 * Gets the user of the GUI
+	 * @return The user of the gui
+	 */
 	public Player getBuyer() {
 		return this.buyer;
+	}
+	
+	/**
+	 * Gets the GUI
+	 * @return The inventory of the gui
+	 */
+	public Inventory getInventory() {
+		return this.storeFront;
 	}
 
 	//Events
