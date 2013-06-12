@@ -125,6 +125,7 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("forceend").setExecutor(cmdExec);
 		getCommand("forcesave").setExecutor(cmdExec);
 		getCommand("admin").setExecutor(cmdExec);
+		getCommand("money").setExecutor(cmdExec);
 		getCommand("class").setExecutor(new ClassExecutor());
 		getCommand("store").setExecutor(new StoreExecutor());
 

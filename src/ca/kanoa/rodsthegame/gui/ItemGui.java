@@ -103,7 +103,7 @@ public abstract class ItemGui implements Listener {
 	@EventHandler (priority=EventPriority.HIGH)
 	public void onItemClicked(InventoryClickEvent event) {
 		if (event.getWhoClicked().getName().equalsIgnoreCase(buyer.getName())) {
-			if (event.getRawSlot() < storeFront.getSize() && event.getCurrentItem() != null) {
+			if (event.getRawSlot() < storeFront.getSize() && event.getCurrentItem() != null && event.getCurrentItem().getItemMeta() != null) {
 				this.itemClicked(new ClickedItem(event.getCurrentItem(), event.getSlot(), event.isShiftClick()));
 				event.setCancelled(true);
 			}

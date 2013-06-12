@@ -18,6 +18,7 @@ import org.bukkit.potion.PotionEffect;
 
 import ca.kanoa.batman.utils.Healer;
 import ca.kanoa.batman.utils.InventoryClear;
+import ca.kanoa.batman.utils.SQL;
 import ca.kanoa.rodsthegame.Copier;
 import ca.kanoa.rodsthegame.classes.ClassLoader;
 import ca.kanoa.rodsthegame.gui.ClickedItem;
@@ -75,6 +76,40 @@ public class CmdExecutor implements CommandExecutor{
 			Main.lobbyTimer = 5;
 			Main.neededPlayers = 0;
 			if(plugin.game.enabled == false) Bukkit.broadcastMessage(ChatMessages.L_PURPLE + "Match force-started by a staff member!");
+		}
+		
+		else if (cmd.getName().equalsIgnoreCase("money")) {
+			switch (args.length) {
+			case 0:
+				return false;
+			case 1: 
+				return false;
+			case 2: 
+				return false;
+			case 3:
+				String name = args[1];
+				int amount;
+				try {
+					amount = Integer.parseInt(args[2]);
+				} catch (NumberFormatException e) {
+					sender.sendMessage("Thats not a number!");
+					return false;
+				}
+				if (args[0].equalsIgnoreCase("set")) {
+					SQL.removeMoney(name, SQL.getMoney(name));
+					SQL.addMoney(name, amount);
+					sender.sendMessage(ChatMessages.prefix + name + " now has " + amount + " exp!");
+					return true;
+				}
+				else if (args[0].equalsIgnoreCase("add")) {
+					sender.sendMessage(ChatMessages.prefix + name + " now has " + (amount + SQL.getMoney(name)) + " exp!");
+					SQL.addMoney(name, amount);
+					return true;
+				}
+				else
+					return false;
+			}
+			return false;
 		}
 
 		else if(cmd.getName().equalsIgnoreCase("stoplobbytimer")){

@@ -121,3 +121,9 @@ commands:
         permission: rtg.store
         aliases: [buy, shop, new]
         permission-message: You don't have permission!
+    money:
+        description: Allows access to anybodys exp.
+        permission: rtg.money
+        aliases: [addxp, axp]
+        permission-message: You don't have permission!
+        usage: /money <add/set> <players name> <amount>

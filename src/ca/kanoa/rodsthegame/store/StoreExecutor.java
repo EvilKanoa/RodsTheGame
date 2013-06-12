@@ -63,7 +63,7 @@ public class StoreExecutor implements CommandExecutor {
 						return;
 					}
 					
-					String cmd = "store " + item.getName().replace(ChatColor.RESET + "", "");
+					String cmd = "store " + item.getName().replace(ChatColor.LIGHT_PURPLE + "", "");
 					getBuyer().performCommand(cmd);
 					close();
 				}}.show();
