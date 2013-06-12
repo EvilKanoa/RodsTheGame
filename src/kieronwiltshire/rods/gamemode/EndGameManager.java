@@ -7,6 +7,8 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import ca.kanoa.batman.utils.SQL;
+import ca.kanoa.rodsthegame.FixedRunnable;
+import ca.kanoa.rodsthegame.ScoreboardHandler;
 
 public class EndGameManager extends FixedRunnable {
 

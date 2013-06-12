@@ -1,6 +1,8 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
 
 import java.util.HashMap;
+
+import kieronwiltshire.rods.gamemode.ChatMessages;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

@@ -1,4 +1,4 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
 
 import org.bukkit.scheduler.BukkitRunnable;
 

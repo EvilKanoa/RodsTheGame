@@ -1,4 +1,6 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
+
+import kieronwiltshire.rods.gamemode.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;

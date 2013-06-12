@@ -1,4 +1,6 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
+
+import kieronwiltshire.rods.gamemode.Main;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

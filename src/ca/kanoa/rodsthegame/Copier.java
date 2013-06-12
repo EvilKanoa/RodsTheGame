@@ -1,4 +1,4 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
 
 import java.io.File;
 import java.io.FileInputStream;

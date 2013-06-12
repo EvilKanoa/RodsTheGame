@@ -16,6 +16,12 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ca.kanoa.batman.utils.WorldLoader;
+import ca.kanoa.rodsthegame.ClassExecutor;
+import ca.kanoa.rodsthegame.ClassLoader;
+import ca.kanoa.rodsthegame.ClassesHandler;
+import ca.kanoa.rodsthegame.Copier;
+import ca.kanoa.rodsthegame.ScoreboardHandler;
+import ca.kanoa.rodsthegame.WorldControlHandler;
 
 public class Main extends JavaPlugin implements Listener
 {
@@ -73,7 +79,7 @@ public class Main extends JavaPlugin implements Listener
 
 
 	//HASH MAP
-	static HashMap<String, String> playerClasses = new HashMap<String, String>();;
+	public static HashMap<String, String> playerClasses = new HashMap<String, String>();;
 	Set<String> spectators;
 	
 	private static Main plugin;

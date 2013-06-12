@@ -10,6 +10,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import ca.kanoa.rodsthegame.ClassExecutor;
+import ca.kanoa.rodsthegame.ClassLoader;
+
 public class SignHandler implements Listener{
 
 	private Main plugin;

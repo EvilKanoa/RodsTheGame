@@ -2,6 +2,8 @@ package kieronwiltshire.rods.gamemode;
 
 import org.bukkit.Bukkit;
 
+import ca.kanoa.rodsthegame.FixedRunnable;
+
 public class GameHandler extends FixedRunnable{
 
 	private Main plugin;

@@ -7,6 +7,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import ca.kanoa.batman.utils.WorldLoader;
+import ca.kanoa.rodsthegame.FixedRunnable;
+import ca.kanoa.rodsthegame.ScoreboardHandler;
 
 public class ResetHandler extends FixedRunnable {
 

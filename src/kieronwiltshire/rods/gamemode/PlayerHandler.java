@@ -26,6 +26,7 @@ import ca.kanoa.RodsTwo.Objects.PlayerUseRodEvent;
 import ca.kanoa.batman.utils.Healer;
 import ca.kanoa.batman.utils.InventoryClear;
 import ca.kanoa.batman.utils.SQL;
+import ca.kanoa.rodsthegame.ScoreboardHandler;
 
 public class PlayerHandler extends BukkitRunnable implements Listener{
 

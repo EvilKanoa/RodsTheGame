@@ -6,6 +6,9 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import ca.kanoa.rodsthegame.FixedRunnable;
+import ca.kanoa.rodsthegame.ScoreboardHandler;
+
 public class LobbyHandler extends FixedRunnable{
 
 	private Main plugin;

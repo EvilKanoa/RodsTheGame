@@ -1,9 +1,11 @@
-package kieronwiltshire.rods.gamemode;
+package ca.kanoa.rodsthegame;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import kieronwiltshire.rods.gamemode.ChatMessages;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
