@@ -181,7 +181,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		Entity att = event.getDamager();
 		Entity ent = event.getEntity();
 
-		if(ent instanceof Player && ent instanceof Player)
+		if(ent instanceof Player && att instanceof Player)
 			if(plugin.spectators.contains(((Player) att).getName()) || Main.lobbyBoolean) 
 				event.setCancelled(true);
 	}
@@ -209,8 +209,10 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 
 	@Override
 	public void run() {
-		for (Player p : Bukkit.getOnlinePlayers())
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			p.setFoodLevel(Main.lobbyBoolean ? 20 : 16);
+			p.setLevel(SQL.getMoney(p.getName()));
+		}
 	}
 
 }
