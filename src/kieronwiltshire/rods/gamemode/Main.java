@@ -16,6 +16,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ca.kanoa.batman.utils.WorldLoader;
+import ca.kanoa.rodsthegame.ClassChatAppender;
 import ca.kanoa.rodsthegame.Copier;
 import ca.kanoa.rodsthegame.ScoreboardHandler;
 import ca.kanoa.rodsthegame.WorldControlHandler;
@@ -110,6 +111,7 @@ public class Main extends JavaPlugin implements Listener
 		Bukkit.getPluginManager().registerEvents(signHandle, this);
 		Bukkit.getPluginManager().registerEvents(controlHandle, this);
 		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getPluginManager().registerEvents(new ClassChatAppender(), this);
 
 		getCommand("import").setExecutor(cmdExec);
 		getCommand("forcestart").setExecutor(cmdExec);
