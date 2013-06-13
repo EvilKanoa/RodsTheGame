@@ -45,14 +45,14 @@ public class TeleportHandler {
 
 			Bukkit.broadcastMessage(ChatMessages.selectedMapIs.replace("%%MAP%%", Main.selectedMap));
 
-			try{
+			try {
 				World world = Bukkit.getServer().getWorld(Main.selectedMap);
 				Location spawn = new Location(world, x, y, z, yaw, pitch);
 
 				for(Player a : Bukkit.getOnlinePlayers())
 					a.teleport(spawn);	
 
-			} catch (NullPointerException n){
+			} catch (NullPointerException n) {
 				System.out.println("Map not found. Finding default spawn location.");
 				Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();	
 				for(Player a : Bukkit.getOnlinePlayers())

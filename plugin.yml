@@ -26,6 +26,8 @@ permissions:
         default: op
     rtg.reloadclasses:
         default: op
+    rtg.reloadstore:
+        default: op
     rtg.worldcheck:
         default: op
     rtg.map:
@@ -127,3 +129,8 @@ commands:
         aliases: [addxp, axp]
         permission-message: You don't have permission!
         usage: /money <add/set> <players name> <amount>
+    reloadstore:
+        description: Reload store buyables from filesystem.
+        permission: rtg.reloadstore
+        aliases: [reload-store, reload-shop, reloadshop]
+        permission-message: You don't have permission!

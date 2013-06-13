@@ -154,6 +154,7 @@ public class ChatMessages {
 	public static String storeTitle = BLUE + "Store";
 	public static String alreadyOwnClass = prefix + "You already own that!";
 	public static String noMoneyToBuy = prefix + "You don't have enough XP!";
+	public static String reloadStore = prefix + "Reloading buyables from files.";
 	
 	
 }

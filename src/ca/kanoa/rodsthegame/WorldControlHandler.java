@@ -46,19 +46,15 @@ public class WorldControlHandler implements Listener, Runnable {
 
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true)
 	public void onPickup(PlayerPickupItemEvent event) {
-		if(event.getPlayer().hasPermission("rtg.puke"))
-			event.setCancelled(false);
-		else
+		if(!event.getPlayer().hasPermission("rtg.puke"))
 			event.setCancelled(true);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true)
 	public void onDrop(PlayerDropItemEvent event) {
-		if(event.getPlayer().hasPermission("rtg.puke"))
-			event.setCancelled(false);
-		else
+		if(!event.getPlayer().hasPermission("rtg.puke"))
 			event.setCancelled(true);
 	}
 
@@ -70,7 +66,7 @@ public class WorldControlHandler implements Listener, Runnable {
 			result = "cancelled by another plugin!";
 		else
 			result = "not cancelled!";
-		System.out.print("World ["+event.getWorld().getName()+"] unloading was "+result);
+		System.out.print("World [" + event.getWorld().getName() + "] unloading was " + result);
 	}
 
 }

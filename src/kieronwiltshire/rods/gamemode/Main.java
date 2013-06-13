@@ -126,8 +126,10 @@ public class Main extends JavaPlugin implements Listener
 		getCommand("forcesave").setExecutor(cmdExec);
 		getCommand("admin").setExecutor(cmdExec);
 		getCommand("money").setExecutor(cmdExec);
+		getCommand("reloadstore").setExecutor(cmdExec);
 		getCommand("class").setExecutor(new ClassExecutor());
 		getCommand("store").setExecutor(new StoreExecutor());
+		
 
 		ScoreboardHandler.setupBoard();
 		this.saveDefaultConfig();

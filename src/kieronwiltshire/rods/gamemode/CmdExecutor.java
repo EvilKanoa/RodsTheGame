@@ -24,6 +24,7 @@ import ca.kanoa.rodsthegame.classes.ClassLoader;
 import ca.kanoa.rodsthegame.gui.ClickedItem;
 import ca.kanoa.rodsthegame.gui.Item;
 import ca.kanoa.rodsthegame.gui.ItemGui;
+import ca.kanoa.rodsthegame.store.StoreParser;
 
 public class CmdExecutor implements CommandExecutor{
 
@@ -133,6 +134,11 @@ public class CmdExecutor implements CommandExecutor{
 		else if(cmd.getName().equalsIgnoreCase("reloadclasses")) {
 			sender.sendMessage(ChatMessages.reloadClasses);
 			ClassLoader.loadFromFiles();
+		}
+		
+		else if(cmd.getName().equalsIgnoreCase("reloadstore")) {
+			sender.sendMessage(ChatMessages.reloadStore);
+			StoreParser.loadFromFiles();
 		}
 
 		else if(cmd.getName().equalsIgnoreCase("forcesave")) {

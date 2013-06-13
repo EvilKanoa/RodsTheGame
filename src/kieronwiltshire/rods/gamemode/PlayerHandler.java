@@ -57,17 +57,15 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		String pName = p.getName();
 
 		event.setJoinMessage(ChatMessages.WHITE + pName + ChatMessages.joinMessage);
-		
-		if (!ScoreboardHandler.isOnBoard(p)) {
+
+		if (!ScoreboardHandler.isOnBoard(p)) 
 			ScoreboardHandler.initPlayer(p);
-			ScoreboardHandler.sendBoard(p);
-		}
+
+		if (Main.lobbyBoolean)
+			ScoreboardHandler.hide(p);
 		else
-			if (Main.lobbyBoolean)
-				ScoreboardHandler.hide(p);
-			else
-				ScoreboardHandler.sendBoard(p);
-		
+			ScoreboardHandler.sendBoard(p);
+
 		Main.playerClasses.put(pName, "default");
 		p.setGameMode(GameMode.SURVIVAL);
 		InventoryClear.clear(p);
@@ -104,9 +102,9 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player p = event.getPlayer();
 		final String pName = p.getName();
-		
+
 		event.setQuitMessage(ChatMessages.WHITE + pName + ChatMessages.quitMessage);
-		
+
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
 			@Override
 			public void run() {
@@ -183,43 +181,28 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		Entity att = event.getDamager();
 		Entity ent = event.getEntity();
 
-		if(ent instanceof Player){
-			if(att instanceof Player){
-				if(plugin.spectators.contains(((Player) att).getName())) event.setCancelled(true);
-				if(Main.lobbyBoolean) event.setCancelled(true);
-			}
-		}
-		else{
-
-		}
+		if(ent instanceof Player && ent instanceof Player)
+			if(plugin.spectators.contains(((Player) att).getName()) || Main.lobbyBoolean) 
+				event.setCancelled(true);
 	}
 
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void NoBlockBreak(BlockBreakEvent event){
-		if(event.getPlayer().hasPermission("rtg.break"))
-			event.setCancelled(false);
-		else
-			event.setCancelled(true);
-	}
-
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void NoBlockPlace(BlockPlaceEvent event){
-		if(event.getPlayer().hasPermission("rtg.place"))
-			event.setCancelled(false);
-		else
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
+		if (!event.getPlayer().hasPermission("rtg.break"))
 			event.setCancelled(true);
 	}
 
 	@EventHandler
-	public void onPlayerDamage(EntityDamageEvent event){
+	public void onBlockPlace(BlockPlaceEvent event) {
+		if (!event.getPlayer().hasPermission("rtg.place"))
+			event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onPlayerDamage(EntityDamageEvent event) {
 		Entity ent = event.getEntity();
-
-		if(ent instanceof Player){
-			if(Main.lobbyBoolean) event.setCancelled(true);
-		}
-		else {
-
-		}
+		if(ent instanceof Player && Main.lobbyBoolean)
+			event.setCancelled(true);
 	}
 
 
