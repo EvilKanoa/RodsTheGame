@@ -4,6 +4,7 @@ import kieronwiltshire.rods.gamemode.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,15 +33,18 @@ public class WorldControlHandler implements Listener, Runnable {
 
 	@Override
 	public void run() {
-		for (World world : Bukkit.getWorlds()) {
-			world.setStorm(false);
-			world.setThundering(false);
-			world.setTime(6000);
+		String map = Main.selectedMap;
+		FileConfiguration config = Main.getInstance().getConfig();
+		World world = Bukkit.getWorld(map == null ? "nullteehee" : map);
+		if (map != null && world != null) {
+			Weather.setWeather(Weather.parseString(config.getString("maps." + map + ".weather")), world);
+			world.setTime(config.getLong("maps." + map + ".time"));
 		}
 		if (Bukkit.getWorld("lobby") != null)
 			for (LivingEntity e : Bukkit.getWorld("lobby").getEntitiesByClass(LivingEntity.class)) {
 				if (!(e instanceof Player)) {
 					e.setHealth(0);
+					Bukkit.getWorld("lobby").setTime(6000);
 				}
 			}
 
@@ -67,6 +71,42 @@ public class WorldControlHandler implements Listener, Runnable {
 		else
 			result = "not cancelled!";
 		System.out.print("World [" + event.getWorld().getName() + "] unloading was " + result);
+	}
+	
+	public enum Weather {
+		
+		SUNNY, RAINING, STORMING;
+		
+		public static void setWeather(Weather weather, World world) {
+			switch (weather) {
+			case SUNNY: 
+				world.setStorm(false);
+				world.setThundering(false);
+				break;
+			case RAINING:
+				world.setStorm(true);
+				world.setThundering(false);
+				break;
+			case STORMING:
+				world.setStorm(true);
+				world.setThundering(true);
+				world.setThunderDuration(2400);
+				break;
+			}
+		}
+		
+		public static Weather parseString(String str) {
+			str = str.toLowerCase().trim();
+			if (str.contains("sunny"))
+				return SUNNY;
+			else if (str.contains("raining"))
+				return RAINING;
+			else if (str.contains("storming"))
+				return STORMING;
+			else
+				return null;
+		}
+		
 	}
 
 }
