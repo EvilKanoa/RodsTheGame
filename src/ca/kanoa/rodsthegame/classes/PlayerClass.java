@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permission;
 import org.bukkit.potion.PotionEffect;
 
 import ca.kanoa.RodsTwo.Objects.Rod;
@@ -42,9 +43,22 @@ public class PlayerClass {
 		player.getInventory().setBoots(pClass.getBoots());
 	}
 	
+	/**
+	 * Reads a PlayerClass from a string retrieved from a file
+	 * @param fileStr The string from the file
+	 * @param name The name of the class
+	 * @return The class read from the string
+	 */
+	public static PlayerClass parseString(String fileStr, String name) {
+		String[] lines = fileStr.split("\n");
+		PlayerClass pClass = new PlayerClass(name);
+		return pClass;
+	}
+	
 	//PlayerClass Object
 	
 	private final String name;
+	private final Permission permission;
 	private List<ItemStack> items;
 	private ItemStack helm = null;
 	private ItemStack chestplate = null;
@@ -58,6 +72,7 @@ public class PlayerClass {
 	 */
 	public PlayerClass(String name) {
 		this.name = name;
+		this.permission = new Permission("rtg.class." + name, "The default permission for " + name + "class.");
 		this.potionEffects = new HashSet<PotionEffect>();
 		this.items = new ArrayList<ItemStack>();
 	}
@@ -109,6 +124,10 @@ public class PlayerClass {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	public Permission getPermission() {
+		return this.permission;
 	}
 	
 	//Armour contents below
