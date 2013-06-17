@@ -48,8 +48,9 @@ public class PlayerClass {
 	 * @param fileStr The string from the file
 	 * @param name The name of the class
 	 * @return The class read from the string
+	 * @throws PlayerClassFormatException Thrown if a format exception occurs
 	 */
-	public static PlayerClass parseString(String fileStr, String name) {
+	public static PlayerClass parseString(String fileStr, String name) throws PlayerClassFormatException {
 		String[] lines = fileStr.split("\n");
 		PlayerClass pClass = new PlayerClass(name);
 		return pClass;
