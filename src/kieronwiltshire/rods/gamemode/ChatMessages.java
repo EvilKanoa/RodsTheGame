@@ -148,7 +148,7 @@ public class ChatMessages {
 	
 	
 	//STORE
-	public static String format = GOLD + "%%ITEM%%" + YELLOW + " X " + RED + "%%AMOUNT%%";
+	public static String format = "%%ITEM%%" + YELLOW + " X " + RED + "%%AMOUNT%%";
 	public static String itemNotfound = prefix + "Unknown item!";
 	public static String itemBought = prefix + "You just bought the %%ITEM%% for %%COST%% XP!";
 	public static String storeTitle = BLUE + "Store";

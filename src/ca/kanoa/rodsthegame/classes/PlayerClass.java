@@ -5,12 +5,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import kieronwiltshire.rods.gamemode.ChatMessages;
+
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
 import org.bukkit.potion.PotionEffect;
 
+import ca.kanoa.RodsTwo.RodsTwo;
 import ca.kanoa.RodsTwo.Objects.Rod;
+import ca.kanoa.rodsthegame.gui.ItemGui;
 
 public class PlayerClass {
 
@@ -53,13 +59,135 @@ public class PlayerClass {
 	public static PlayerClass parseString(String fileStr, String name) throws PlayerClassFormatException {
 		String[] lines = fileStr.split("\n");
 		PlayerClass pClass = new PlayerClass(name);
+		for (String str : lines) {
+			String itemName = str.split(".")[1];
+			int amount;
+			try {
+				amount = str.contains(":") ? Integer.parseInt(str.split(":")[1]) : 1;
+			} catch (NumberFormatException e) {
+				amount = 1;
+			}
+			
+			switch (ItemType.getItemType(str)) {
+			
+			//LightningRod
+			case ROD:
+				Rod rod = RodsTwo.getRod(itemName);
+				if (rod == null)
+					throw new PlayerClassFormatException("Unknown rod while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.addRod(rod, amount);
+				break;
+				
+			//Armour Boots
+			case BOOTS:
+				Material boots = Material.getMaterial(itemName);
+				if (boots == null)
+					throw new PlayerClassFormatException("Unknown material type for boots while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.setBoots(new ItemStack(boots, amount));
+				break;
+				
+			//Armour Chestplate
+			case CHESTPLATE:
+				Material chestplate = Material.getMaterial(itemName);
+				if (chestplate == null)
+					throw new PlayerClassFormatException("Unknown material type for chestplate while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.setChestplate(new ItemStack(chestplate, amount));
+				break;
+				
+			//Armour Helmet
+			case HELMET:
+				Material helmet = Material.getMaterial(itemName);
+				if (helmet == null)
+					throw new PlayerClassFormatException("Unknown material type for helmet while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.setLeggings(new ItemStack(helmet, amount));
+				break;
+				
+			//Item by Name
+			case ITEM:
+				Material item = Material.getMaterial(itemName);
+				if (item == null)
+					throw new PlayerClassFormatException("Unknown material type while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.addItem(new ItemStack(item, amount));
+				break;
+				
+			//Item by ID
+			case ITEMID:
+				int itemID;
+				try {
+					itemID = Integer.parseInt(itemName);
+				} catch (NumberFormatException e) {
+					throw new PlayerClassFormatException("Unknown material type while loading: " + itemName + ", on line: " + str + ", in class " + name);
+				}
+				Material itemIDMaterial = Material.getMaterial(itemID);
+				if (itemIDMaterial == null)
+					throw new PlayerClassFormatException("Unknown item ID while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.addItem(new ItemStack(itemIDMaterial, amount));
+				break;
+			
+			//Armour Leggings
+			case LEGGINGS:
+				Material leggings = Material.getMaterial(itemName);
+				if (leggings == null)
+					throw new PlayerClassFormatException("Unknown material type for leggings while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.setLeggings(new ItemStack(leggings, amount));
+				break;
+				
+			//Looks by ID or Name
+			case LOOKS:
+				Material looks;
+				try {
+					looks = Material.getMaterial(Integer.parseInt(itemName));
+				} catch (NumberFormatException e) {
+					looks = Material.getMaterial(itemName);
+				}
+				if (looks == null)
+					throw new PlayerClassFormatException("Unknown material for look while loading: " + 
+							itemName + ", on line: " + str + ", in class " + 
+							name);
+				else
+					pClass.setLook(looks);
+				break;
+				
+			//Potion Effect [WIP]
+			case POTIONEFFECT:
+				break;
+				
+			//Unknown
+			default:
+				throw new PlayerClassFormatException("Unknown item type while loading line: " + 
+						str + ", in class: " + 
+						name);
+			
+			}
+		}
 		return pClass;
 	}
 	
 	public static enum ItemType {
 		//Items
-		ROD, 
-		ITEM, 
+		ROD,
+		ITEM,
 		ITEMID,
 		//Armour
 		HELMET, 
@@ -99,6 +227,7 @@ public class PlayerClass {
 	private final String name;
 	private final Permission permission;
 	private List<ItemStack> items;
+	private Material look;
 	private ItemStack helm = null;
 	private ItemStack chestplate = null;
 	private ItemStack leggings = null;
@@ -114,6 +243,7 @@ public class PlayerClass {
 		this.permission = new Permission("rtg.class." + name, "The default permission for " + name + "class.");
 		this.potionEffects = new HashSet<PotionEffect>();
 		this.items = new ArrayList<ItemStack>();
+		this.look = Material.PISTON_EXTENSION;
 	}
 	
 	/**
@@ -142,6 +272,30 @@ public class PlayerClass {
 	}
 	
 	/**
+	 * Gets a item that can be used as a button for this class in a gui/ui
+	 * @return This classes button
+	 */
+	public ItemStack getGUIButton() {
+		ItemStack button = new ItemStack(look, 1);
+		ItemMeta meta = button.getItemMeta();
+		meta.setDisplayName(ChatMessages.L_PURPLE + this.name);
+		List<String> strList = new ArrayList<String>();
+		String format = ChatMessages.format;
+		for (ItemStack item : this.items) {
+			String itemName = item.getItemMeta() == null || item.getItemMeta().getDisplayName() == null ? ItemGui.getMaterialName(item.getType()) : item.getItemMeta().getDisplayName();
+			String amount = "" + item.getAmount();
+			strList.add(ChatMessages.GOLD + format.replace("%%ITEM%%", itemName).replace("%%AMOUNT%%", amount));
+		}
+		for (PotionEffect effect : this.potionEffects) {
+			String itemName = effect.getType().getName();
+			int level = effect.getAmplifier() + 1;
+			int duration = effect.getDuration() / 20;
+			strList.add(ChatMessages.BLUE + format.replace("%%ITEM%%", itemName).replace("%%AMOUNT%%", duration + "*" + level));
+		}
+		return button;
+	}
+	
+	/**
 	 * Gets the potion effects associated with this class
 	 * @return The PotionEffects associated with this class
 	 */
@@ -167,6 +321,22 @@ public class PlayerClass {
 	
 	public Permission getPermission() {
 		return this.permission;
+	}
+
+	/**
+	 * Gets the material that should represent this class in a inventory/GUI
+	 * @return This classes look
+	 */
+	public Material getLook() {
+		return look;
+	}
+
+	/**
+	 * Sets the material that should represent this class in a inventory/GUI
+	 * @param look This classes look
+	 */
+	public void setLook(Material look) {
+		this.look = look;
 	}
 	
 	//Armour contents below
