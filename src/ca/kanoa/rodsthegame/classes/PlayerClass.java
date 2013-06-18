@@ -56,6 +56,44 @@ public class PlayerClass {
 		return pClass;
 	}
 	
+	public static enum ItemType {
+		//Items
+		ROD, 
+		ITEM, 
+		ITEMID,
+		//Armour
+		HELMET, 
+		CHESTPLATE, 
+		LEGGINGS, 
+		BOOTS,
+		//Other
+		POTIONEFFECT, 
+		LOOKS;
+		
+		public static ItemType getItemType(String item) {
+			if (item.toLowerCase().startsWith("rod"))
+				return ItemType.ROD;
+			else if (item.toLowerCase().startsWith("itemid"))
+				return ItemType.ITEMID;
+			else if (item.toLowerCase().startsWith("item"))
+				return ItemType.ITEM;
+			else if (item.toLowerCase().startsWith("helmet"))
+				return ItemType.HELMET;
+			else if (item.toLowerCase().startsWith("chestplate"))
+				return ItemType.CHESTPLATE;
+			else if (item.toLowerCase().startsWith("leggings"))
+				return ItemType.LEGGINGS;
+			else if (item.toLowerCase().startsWith("boots"))
+				return ItemType.BOOTS;
+			else if (item.toLowerCase().startsWith("potion") || item.toLowerCase().startsWith("effect"))
+				return ItemType.POTIONEFFECT;
+			else if (item.toLowerCase().startsWith("look"))
+				return ItemType.LOOKS;
+			else
+				return null;
+		}
+	}
+	
 	//PlayerClass Object
 	
 	private final String name;
