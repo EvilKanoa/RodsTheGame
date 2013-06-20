@@ -9,6 +9,12 @@ import java.io.OutputStream;
 
 public class Copier {
 
+	/**
+	 * Copy a whole folder without looking thru it
+	 * @param src The folder to be copied
+	 * @param dest The destination of the copied folder
+	 * @throws IOException If an error occurs while copying
+	 */
 	public static void copyFolder(File src, File dest) throws IOException {
 
 		if(src.isDirectory()) {
@@ -45,6 +51,11 @@ public class Copier {
 		}
 	}
 	
+	/**
+	 * Can delete a whole directory at once
+	 * @param directory The directory to be deleted
+	 * @return Weather it was deleted successfully
+	 */
 	public static boolean deleteDirectory(File directory) {
 		
 	    if(directory.exists()) {

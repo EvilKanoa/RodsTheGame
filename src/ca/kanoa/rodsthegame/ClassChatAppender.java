@@ -11,10 +11,15 @@ import ca.kanoa.batman.chat.ChatEvent;
 
 public class ClassChatAppender implements Listener {
 
+	/**
+	 * Listens for a chat event so we can prefix it with the players class
+	 * @param event The event that was called
+	 */
 	@EventHandler(priority=EventPriority.LOW, ignoreCancelled=true)
 	public void onChat(ChatEvent event) {
 		String prePrefix;
 		if (Main.lobbyBoolean)
+			//If were in the lobby just put "Lobby", no need for classes here
 			prePrefix = ChatColor.AQUA + "[" + ChatColor.GOLD + "Lobby" + ChatColor.AQUA + "] " + ChatColor.GREEN;
 		else
 			prePrefix = ChatColor.AQUA + "[" + 
