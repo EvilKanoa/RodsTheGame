@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import ca.kanoa.RodsTwo.RodsTwo;
 import ca.kanoa.RodsTwo.Objects.Rod;
@@ -179,6 +180,30 @@ public class PlayerClass {
 
 				//Potion Effect [WIP]
 			case POTIONEFFECT:
+				PotionEffectType effect = PotionEffectType.getByName(itemName.toUpperCase());
+				if (effect == null)
+					throw new PlayerClassFormatException("Unknown potion effect while loading line: " + 
+							str + ", in class : " + name);
+				String numbers;
+				try {
+					numbers = str.split(":")[1];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					throw new PlayerClassFormatException("Unknown time/level while loading line: " + 
+							str + ", in class : " + name);
+				}
+				if (!numbers.contains("*"))
+					throw new PlayerClassFormatException("Unknown time/level while loading line: " + 
+							str + ", in class : " + name);
+				int level;
+				int duration;
+				try {
+					level = Integer.parseInt(numbers.split("*")[0]);
+					duration = Integer.parseInt(numbers.split("*")[1]);
+				} catch (Exception e) {
+					throw new PlayerClassFormatException("Unknown time/level/error (" + e.toString() + ") while loading line: " + 
+							str + ", in class : " + name);
+				}
+				pClass.addPotionEffect(new PotionEffect(effect, duration * 20, level - 1));
 				break;
 
 				//Unknown
