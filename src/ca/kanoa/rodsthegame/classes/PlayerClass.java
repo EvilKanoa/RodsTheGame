@@ -119,7 +119,7 @@ public class PlayerClass {
 							itemName + ", on line: " + str + ", in class " + 
 							name);
 				else
-					pClass.setLeggings(new ItemStack(helmet, amount));
+					pClass.setHelmet(new ItemStack(helmet, amount));
 				break;
 
 				//Item by Name
@@ -182,6 +182,10 @@ public class PlayerClass {
 				break;
 
 				//Unknown
+			case UNKNOWN:
+				throw new PlayerClassFormatException("Unknown item type while loading line: " + 
+						str + ", in class: " + 
+						name);
 			default:
 				throw new PlayerClassFormatException("Unknown item type while loading line: " + 
 						str + ", in class: " + 
@@ -204,7 +208,8 @@ public class PlayerClass {
 		BOOTS,
 		//Other
 		POTIONEFFECT, 
-		LOOKS;
+		LOOKS,
+		UNKNOWN;
 
 		/**
 		 * Will attempt to figure out what type of item a string is
@@ -231,7 +236,7 @@ public class PlayerClass {
 			else if (item.toLowerCase().startsWith("look"))
 				return ItemType.LOOKS;
 			else
-				return null;
+				return  UNKNOWN;
 		}
 	}
 
@@ -331,6 +336,16 @@ public class PlayerClass {
 			int duration = effect.getDuration() / 20;
 			strList.add(ChatMessages.BLUE + format.replace("%%ITEM%%", itemName).replace("%%AMOUNT%%", duration + "*" + level));
 		}
+		if (this.helm != null)
+			strList.add(ChatMessages.D_AQUA + "Helmet: " + ChatMessages.L_PURPLE + ItemGui.getMaterialName(this.helm.getType()));
+		if (this.chestplate != null)
+			strList.add(ChatMessages.D_AQUA + "Chestplate: " + ChatMessages.L_PURPLE + ItemGui.getMaterialName(this.chestplate.getType()));
+		if (this.leggings != null)
+			strList.add(ChatMessages.D_AQUA + "Leggings: " + ChatMessages.L_PURPLE + ItemGui.getMaterialName(this.leggings.getType()));
+		if (this.boots != null)
+			strList.add(ChatMessages.D_AQUA + "Boots: " + ChatMessages.L_PURPLE + ItemGui.getMaterialName(this.boots.getType()));
+		meta.setLore(strList);
+		button.setItemMeta(meta);
 		return button;
 	}
 

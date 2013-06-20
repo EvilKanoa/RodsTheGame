@@ -90,17 +90,22 @@ public class ClassGui implements Listener {
 	@EventHandler (priority=EventPriority.HIGH)
 	public void onItemClicked(InventoryClickEvent event) {
 		if (event.getWhoClicked().getName().equalsIgnoreCase(buyer.getName())) {
-			if (event.getRawSlot() < storeFront.getSize()) {
-				ItemStack is = event.getCurrentItem();
-				for (PlayerClass pc : ClassLoader.classes)
-					if (is == pc.getGUIButton()) {
-						ClassExecutor.choseClass((Player) event.getViewers().get(0), pc.getName());
-						close();
-					}
-			
-			}
-			else if (event.isShiftClick())
+			try {
+				if (event.getRawSlot() < storeFront.getSize()) {
+					ItemStack is = event.getCurrentItem();
+					for (PlayerClass pc : ClassLoader.classes)
+						if (is.getItemMeta().getDisplayName().equals(pc.getGUIButton().getItemMeta().getDisplayName())) {
+							ClassExecutor.choseClass(buyer, pc.getName());
+							close();
+						}
+					event.setCancelled(true);
+
+				}
+				else if (event.isShiftClick())
+					event.setCancelled(true);
+			} catch (NullPointerException e) {
 				event.setCancelled(true);
+			}
 		}
 	}
 
