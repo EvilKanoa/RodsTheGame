@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 import ca.kanoa.batman.utils.Healer;
+import ca.kanoa.rodsthegame.classes.ClassesHandler;
 
 public class TeleportHandler {
 
@@ -82,8 +83,7 @@ public class TeleportHandler {
 	//<Index = 2>
 	public void teleportRandomSpawn(Player player){
 
-		String checkClass = Main.playerClasses.get(player.getName());
-		if(checkClass.equalsIgnoreCase("default")){
+		if(Main.playerClasses.get(player.getName()).equalsIgnoreCase("default")){
 			player.sendMessage(ChatMessages.prefix + "You must choose a class first!");
 		}
 		else{
@@ -118,7 +118,7 @@ public class TeleportHandler {
 
 
 				player.teleport(loc);	
-				plugin.classesHandle.customClasses(player);
+				ClassesHandler.customClasses(player);
 
 			} catch (NullPointerException e) {
 				plugin.getLogger().info("Unknown error occured whilst teleport player.");

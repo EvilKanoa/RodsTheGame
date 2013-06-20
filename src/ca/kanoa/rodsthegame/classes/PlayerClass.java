@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import kieronwiltshire.rods.gamemode.ChatMessages;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +20,7 @@ import ca.kanoa.rodsthegame.gui.ItemGui;
 public class PlayerClass {
 
 	//Static methods
-	
+
 	/**
 	 * Gives a player the specified class
 	 * @param player The player to give the class to
@@ -34,7 +33,7 @@ public class PlayerClass {
 			player.removePotionEffect(effect.getType());
 		//Clear items and rods
 		player.getInventory().clear();
-		
+
 		//Give the player his/her armour, items, rods, and potion effects
 		//First we add the items and rods
 		for (ItemStack item : pClass.getItems())
@@ -48,7 +47,7 @@ public class PlayerClass {
 		player.getInventory().setLeggings(pClass.getLeggings());
 		player.getInventory().setBoots(pClass.getBoots());
 	}
-	
+
 	/**
 	 * Reads a PlayerClass from a string retrieved from a file
 	 * @param fileStr The string from the file
@@ -60,16 +59,25 @@ public class PlayerClass {
 		String[] lines = fileStr.split("\n");
 		PlayerClass pClass = new PlayerClass(name);
 		for (String str : lines) {
-			String itemName = str.split(".")[1];
+			/*
+			 * Debug messages
+			 */
+			//Main.debug(name + ": " + str);
 			int amount;
+			String itemName;
 			try {
-				amount = str.contains(":") ? Integer.parseInt(str.split(":")[1]) : 1;
-			} catch (NumberFormatException e) {
-				amount = 1;
+				itemName = str.substring(str.indexOf('.') + 1, str.contains(":") ? str.indexOf(':') : str.length());
+				try {
+					amount = str.contains(":") ? Integer.parseInt(str.split(":")[1]) : 1;
+				} catch (NumberFormatException e) {
+					amount = 1;
+				}
+			} catch (Exception e){
+				throw new PlayerClassFormatException("Error (" + e.toString() + ") loading " + name + "!");
 			}
-			
+
 			switch (ItemType.getItemType(str)) {
-			
+
 			//LightningRod
 			case ROD:
 				Rod rod = RodsTwo.getRod(itemName);
@@ -80,10 +88,10 @@ public class PlayerClass {
 				else
 					pClass.addRod(rod, amount);
 				break;
-				
-			//Armour Boots
+
+				//Armour Boots
 			case BOOTS:
-				Material boots = Material.getMaterial(itemName);
+				Material boots = Material.getMaterial(itemName.toUpperCase());
 				if (boots == null)
 					throw new PlayerClassFormatException("Unknown material type for boots while loading: " + 
 							itemName + ", on line: " + str + ", in class " + 
@@ -91,10 +99,10 @@ public class PlayerClass {
 				else
 					pClass.setBoots(new ItemStack(boots, amount));
 				break;
-				
-			//Armour Chestplate
+
+				//Armour Chestplate
 			case CHESTPLATE:
-				Material chestplate = Material.getMaterial(itemName);
+				Material chestplate = Material.getMaterial(itemName.toUpperCase());
 				if (chestplate == null)
 					throw new PlayerClassFormatException("Unknown material type for chestplate while loading: " + 
 							itemName + ", on line: " + str + ", in class " + 
@@ -102,10 +110,10 @@ public class PlayerClass {
 				else
 					pClass.setChestplate(new ItemStack(chestplate, amount));
 				break;
-				
-			//Armour Helmet
+
+				//Armour Helmet
 			case HELMET:
-				Material helmet = Material.getMaterial(itemName);
+				Material helmet = Material.getMaterial(itemName.toUpperCase());
 				if (helmet == null)
 					throw new PlayerClassFormatException("Unknown material type for helmet while loading: " + 
 							itemName + ", on line: " + str + ", in class " + 
@@ -113,10 +121,10 @@ public class PlayerClass {
 				else
 					pClass.setLeggings(new ItemStack(helmet, amount));
 				break;
-				
-			//Item by Name
+
+				//Item by Name
 			case ITEM:
-				Material item = Material.getMaterial(itemName);
+				Material item = Material.getMaterial(itemName.toUpperCase());
 				if (item == null)
 					throw new PlayerClassFormatException("Unknown material type while loading: " + 
 							itemName + ", on line: " + str + ", in class " + 
@@ -124,8 +132,8 @@ public class PlayerClass {
 				else
 					pClass.addItem(new ItemStack(item, amount));
 				break;
-				
-			//Item by ID
+
+				//Item by ID
 			case ITEMID:
 				int itemID;
 				try {
@@ -141,10 +149,10 @@ public class PlayerClass {
 				else
 					pClass.addItem(new ItemStack(itemIDMaterial, amount));
 				break;
-			
-			//Armour Leggings
+
+				//Armour Leggings
 			case LEGGINGS:
-				Material leggings = Material.getMaterial(itemName);
+				Material leggings = Material.getMaterial(itemName.toUpperCase());
 				if (leggings == null)
 					throw new PlayerClassFormatException("Unknown material type for leggings while loading: " + 
 							itemName + ", on line: " + str + ", in class " + 
@@ -152,14 +160,14 @@ public class PlayerClass {
 				else
 					pClass.setLeggings(new ItemStack(leggings, amount));
 				break;
-				
-			//Looks by ID or Name
+
+				//Looks by ID or Name
 			case LOOKS:
 				Material looks;
 				try {
 					looks = Material.getMaterial(Integer.parseInt(itemName));
 				} catch (NumberFormatException e) {
-					looks = Material.getMaterial(itemName);
+					looks = Material.getMaterial(itemName.toUpperCase());
 				}
 				if (looks == null)
 					throw new PlayerClassFormatException("Unknown material for look while loading: " + 
@@ -168,22 +176,22 @@ public class PlayerClass {
 				else
 					pClass.setLook(looks);
 				break;
-				
-			//Potion Effect [WIP]
+
+				//Potion Effect [WIP]
 			case POTIONEFFECT:
 				break;
-				
-			//Unknown
+
+				//Unknown
 			default:
 				throw new PlayerClassFormatException("Unknown item type while loading line: " + 
 						str + ", in class: " + 
 						name);
-			
+
 			}
 		}
 		return pClass;
 	}
-	
+
 	public static enum ItemType {
 		//Items
 		ROD,
@@ -197,7 +205,12 @@ public class PlayerClass {
 		//Other
 		POTIONEFFECT, 
 		LOOKS;
-		
+
+		/**
+		 * Will attempt to figure out what type of item a string is
+		 * @param item The string to check
+		 * @return The ItemType the string is
+		 */
 		public static ItemType getItemType(String item) {
 			if (item.toLowerCase().startsWith("rod"))
 				return ItemType.ROD;
@@ -221,9 +234,9 @@ public class PlayerClass {
 				return null;
 		}
 	}
-	
+
 	//PlayerClass Object
-	
+
 	private final String name;
 	private final Permission permission;
 	private List<ItemStack> items;
@@ -233,7 +246,7 @@ public class PlayerClass {
 	private ItemStack leggings = null;
 	private ItemStack boots = null;
 	private Set<PotionEffect> potionEffects;
-	
+
 	/**
 	 * Creates a new class that a player can use
 	 * @param name The name of the class
@@ -245,7 +258,33 @@ public class PlayerClass {
 		this.items = new ArrayList<ItemStack>();
 		this.look = Material.PISTON_EXTENSION;
 	}
-	
+
+	/**
+	 * Will apply a class to a player by clearing their inventory they giving them all items/effects associated with this class
+	 * @param player The player to apply the class to
+	 */
+	public void applyClass(Player player) {
+		//Clear everything in the inventory currently
+		//Remove potion effects
+		for (PotionEffect effect : player.getActivePotionEffects())
+			player.removePotionEffect(effect.getType());
+		//Clear items and rods
+		player.getInventory().clear();
+
+		//Give the player his/her armour, items, rods, and potion effects
+		//First we add the items and rods
+		for (ItemStack item : this.getItems())
+			player.getInventory().addItem(item);
+		//Now we add the potion effects
+		for (PotionEffect effect : this.getPotionEffects())
+			player.addPotionEffect(effect);
+		//Then we give them armour
+		player.getInventory().setHelmet(this.getHelmet());
+		player.getInventory().setChestplate(this.getChestplate());
+		player.getInventory().setLeggings(this.getLeggings());
+		player.getInventory().setBoots(this.getBoots());
+	}
+
 	/**
 	 * Adds an item to this class
 	 * @param item The item to be added
@@ -253,7 +292,7 @@ public class PlayerClass {
 	public void addItem(ItemStack item) {
 		items.add(item);
 	}
-	
+
 	/**
 	 * Adds a rod to this class
 	 * @param rod The rod the be added
@@ -262,7 +301,7 @@ public class PlayerClass {
 	public void addRod(Rod rod, int amount) {
 		items.add(rod.getItem(amount));
 	}
-	
+
 	/**
 	 * Adds a potion effect to this class
 	 * @param effect The potion effect to be added
@@ -270,7 +309,7 @@ public class PlayerClass {
 	public void addPotionEffect(PotionEffect effect){
 		potionEffects.add(effect);
 	}
-	
+
 	/**
 	 * Gets a item that can be used as a button for this class in a gui/ui
 	 * @return This classes button
@@ -294,7 +333,7 @@ public class PlayerClass {
 		}
 		return button;
 	}
-	
+
 	/**
 	 * Gets the potion effects associated with this class
 	 * @return The PotionEffects associated with this class
@@ -302,7 +341,7 @@ public class PlayerClass {
 	public Set<PotionEffect> getPotionEffects() {
 		return this.potionEffects;
 	}
-	
+
 	/**
 	 * Gets the items (including rods) associated with this class
 	 * @return The itemStacks associated with this class
@@ -310,7 +349,7 @@ public class PlayerClass {
 	public List<ItemStack> getItems() {
 		return this.items;
 	}
-	
+
 	/**
 	 * Gets the name of this clas
 	 * @return This name of this class
@@ -318,7 +357,7 @@ public class PlayerClass {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public Permission getPermission() {
 		return this.permission;
 	}
@@ -338,7 +377,7 @@ public class PlayerClass {
 	public void setLook(Material look) {
 		this.look = look;
 	}
-	
+
 	//Armour contents below
 
 	/**
@@ -404,5 +443,5 @@ public class PlayerClass {
 	public void setBoots(ItemStack boots) {
 		this.boots = boots;
 	}
-	
+
 }

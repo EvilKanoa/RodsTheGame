@@ -54,19 +54,19 @@ public class ClassExecutor implements CommandExecutor {
 	 */
 	public static boolean choseClass(Player player, String classStr) {
 		if (player.hasPermission("rtg.class." + classStr) || player.hasPermission("rtg.class.all")) {
-			for (String str : ClassLoader.classes.keySet())
-				if (str.equalsIgnoreCase(classStr)) {
-					Main.playerClasses.put(player.getName(), str);
-					player.sendMessage(ChatMessages.chosenClass + str);
+			PlayerClass pc = ClassLoader.getClass(classStr);
+				if (pc != null) {
+					Main.playerClasses.put(player.getName(), pc.getName());
+					player.sendMessage(ChatMessages.chosenClass + pc.getName());
 					return true;
 				}
+				else
+					return false;
 		}
 		else {
 			player.sendMessage(ChatMessages.noClassPermission);
 			return true;
-		}
-		return false;
-					
+		}		
 	}
 
 }

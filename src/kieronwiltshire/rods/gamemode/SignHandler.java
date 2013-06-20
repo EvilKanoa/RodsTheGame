@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import ca.kanoa.rodsthegame.classes.ClassExecutor;
 import ca.kanoa.rodsthegame.classes.ClassLoader;
+import ca.kanoa.rodsthegame.classes.PlayerClass;
 
 public class SignHandler implements Listener{
 
@@ -46,8 +47,16 @@ public class SignHandler implements Listener{
 
 					if (s.getLine(1).equalsIgnoreCase("random")) {
 						int classNum = (new Random()).nextInt(ClassLoader.classes.size());
-						String str = ClassLoader.classes.keySet().toArray(new String[0])[classNum];
-						ClassExecutor.choseClass(p, str);
+						PlayerClass pc = null;
+						int i = 0;
+						while (pc == null) {
+							PlayerClass temp = ClassLoader.classes.toArray(new PlayerClass[0])[classNum];
+							if (p.hasPermission(temp.getPermission()) || p.hasPermission("rtg.class.all"))
+								pc = temp;
+							if (i++ > 30)
+								return;
+						}
+						ClassExecutor.choseClass(p, pc.getName());
 					}
 					
 					else

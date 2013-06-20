@@ -2,8 +2,8 @@ package ca.kanoa.rodsthegame.classes;
 
 import kieronwiltshire.rods.gamemode.Main;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 
 public class ClassesHandler {
@@ -18,14 +18,15 @@ public class ClassesHandler {
 
 	//<Index = 1>
 	@SuppressWarnings("deprecation")
-	public void customClasses(Player player){
-		String pName = player.getName();
-		String pClass = Main.playerClasses.get(pName);
-
-		for (ItemStack is : ClassLoader.classes.get(pClass))
-			player.getInventory().addItem(is);
-		player.updateInventory();
-
+	public static void customClasses(Player player){
+		String pClass = "null/unknown";
+		try {
+			pClass = Main.playerClasses.get(player.getName());
+			ClassLoader.getClass(pClass).applyClass(player);
+			player.updateInventory();
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().severe("Error while attempting to give class " + pClass + " to player " + player.getName());
+		}
 
 	}
 

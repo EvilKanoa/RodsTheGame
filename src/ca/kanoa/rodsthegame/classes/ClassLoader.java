@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -17,20 +16,31 @@ import ca.kanoa.RodsTwo.RodsTwo;
 
 public class ClassLoader {
 
-	public static HashMap<String, ItemStack[]> classes;
+	public static List<PlayerClass> classes;
 	private static String sz = File.separator;
 	
+	/**
+	 * Loads all the classes inside the "Classes" folder to the list "classes"
+	 */
 	public static void loadFromFiles() {
-		classes = new HashMap<String, ItemStack[]>();
+		classes = new ArrayList<PlayerClass>();
 		File folder = new File("." + sz + "plugins" + sz + "RodsTheGame" + sz + "Classes");
 		if (!folder.exists())
 			folder.mkdirs();
 		for (File f : folder.listFiles())
 			if (f.isFile() && f.getName().endsWith(".txt"))
-				classes.put(f.getName().replace(".txt", ""), getRods(readFile(f)));
+				try {
+					classes.add(PlayerClass.parseString(readFile(f), f.getName().replace(".txt", "")));
+				} catch (PlayerClassFormatException e) {
+					e.printStackTrace();
+				}
 	}
 	
-	
+	/**
+	 * Reads a file
+	 * @param file The file to be read
+	 * @return A string of the text inside the file (newlines will be: \n)
+	 */
 	private static String readFile(File file) {
 		String str = "";
 		try {
@@ -49,8 +59,26 @@ public class ClassLoader {
 		}
 		return str;
 	}
+	
+	/**
+	 * Attempts to find a class by the given name
+	 * @param name The name of the class to look for
+	 * @return The class if found, otherwise null
+	 */
+	public static PlayerClass getClass(String name) {
+		for (PlayerClass pc : classes)
+			if (pc.getName().equalsIgnoreCase(name))
+				return pc;
+		return null;
+	}
 
-
+	/**
+	 * Attempts to read a list of itemstacks from a string
+	 * @param str The string to be read
+	 * @return A array of ItemStacks that could beread from the string
+	 * @deprecated
+	 */
+	@SuppressWarnings("unused")
 	private static ItemStack[] getRods(String str) {
 		String[] raw = str.split("\n");
 		raw[raw.length - 1] = raw[raw.length - 1].replace("\n", "");

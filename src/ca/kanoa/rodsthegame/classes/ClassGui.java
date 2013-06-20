@@ -2,11 +2,7 @@ package ca.kanoa.rodsthegame.classes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import kieronwiltshire.rods.gamemode.ChatMessages;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -36,20 +32,29 @@ public class ClassGui implements Listener {
 	}
 
 	private void populateStore() {
-		storeFront = Bukkit.createInventory(buyer, roundUp(sizeWithPerms(ClassLoader.classes.keySet())), ChatMessages.guiTitle);
-		for (Entry<String, ItemStack[]> cls : ClassLoader.classes.entrySet())
-			if (buyer.hasPermission("rtg.class." + cls.getKey()) || buyer.hasPermission("rtg.class.all"))
-				storeFront.addItem(generateItem(cls.getKey(), cls.getValue()));
+		storeFront = Bukkit.createInventory(buyer, roundUp(sizeWithPerms(ClassLoader.classes)), ChatMessages.guiTitle);
+		for (PlayerClass pc : ClassLoader.classes)
+			if (buyer.hasPermission(pc.getPermission()) || buyer.hasPermission("rtg.class.all"))
+				storeFront.addItem(pc.getGUIButton());
 	}
 
-	private int sizeWithPerms(Set<String> set) {
+	private int sizeWithPerms(List<?> set) {
 		int i = 0;
-		for (String str : set)
-			if (buyer.hasPermission("rtg.class." + str.toLowerCase()) || buyer.hasPermission("rtg.class.all"))
-				i++;
+		for (Object obj : set)
+			if (obj instanceof PlayerClass)
+				if (buyer.hasPermission(((PlayerClass) obj).getPermission()) || buyer.hasPermission("rtg.class.all"))
+					i++;
 		return i;
 	}
 
+	/**
+	 * Attempts to generate a ItemStack for a (old style) class
+	 * @param name The name of the class
+	 * @param contants The contents of the class
+	 * @return An ItemSTack to represent the class in a GUI
+	 * @deprecated
+	 */
+	@SuppressWarnings("unused")
 	private ItemStack generateItem(String name, ItemStack[] contants) {
 		ItemStack raw = new ItemStack(Material.getMaterial(itemID), 1);
 		ItemMeta meta = raw.getItemMeta();
@@ -87,13 +92,12 @@ public class ClassGui implements Listener {
 		if (event.getWhoClicked().getName().equalsIgnoreCase(buyer.getName())) {
 			if (event.getRawSlot() < storeFront.getSize()) {
 				ItemStack is = event.getCurrentItem();
-				for (Entry<String, ItemStack[]> item : ClassLoader.classes.entrySet())
-					if (is != null && is.getItemMeta() != null && 
-					is.getItemMeta().getDisplayName().equals(ChatMessages.L_PURPLE + item.getKey())) {
-						ClassExecutor.choseClass(buyer, item.getKey());
-						event.setCancelled(true);
+				for (PlayerClass pc : ClassLoader.classes)
+					if (is == pc.getGUIButton()) {
+						ClassExecutor.choseClass((Player) event.getViewers().get(0), pc.getName());
 						close();
 					}
+			
 			}
 			else if (event.isShiftClick())
 				event.setCancelled(true);

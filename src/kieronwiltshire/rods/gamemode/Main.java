@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -288,7 +287,7 @@ public class Main extends JavaPlugin implements Listener
 	}
 
     public static void debug(String msg) {
-    	System.out.println(ChatColor.YELLOW + "" + '[' + ChatColor.AQUA + "Debug" + ChatColor.YELLOW + "] " + ChatColor.RED + msg);
+    	System.out.println("[Debug] " + msg);
     }
 
 
