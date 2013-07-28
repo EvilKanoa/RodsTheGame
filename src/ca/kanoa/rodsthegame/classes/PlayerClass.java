@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import kieronwiltshire.rods.gamemode.ChatMessages;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -172,7 +175,7 @@ public class PlayerClass {
 				}
 				if (looks == null)
 					throw new PlayerClassFormatException("Unknown material for look while loading: " + 
-							itemName + ", on line: " + str + ", in class " + 
+							itemName + ", on line: " + str + ", in class: " + 
 							name);
 				else
 					pClass.setLook(looks);
@@ -183,25 +186,27 @@ public class PlayerClass {
 				PotionEffectType effect = PotionEffectType.getByName(itemName.toUpperCase());
 				if (effect == null)
 					throw new PlayerClassFormatException("Unknown potion effect while loading line: " + 
-							str + ", in class : " + name);
+							str + ", in class: " + name);
 				String numbers;
 				try {
 					numbers = str.split(":")[1];
 				} catch (ArrayIndexOutOfBoundsException e) {
 					throw new PlayerClassFormatException("Unknown time/level while loading line: " + 
-							str + ", in class : " + name);
+							str + ", in class: " + name);
 				}
-				if (!numbers.contains("*"))
+				if (!numbers.toLowerCase().contains("x"))
 					throw new PlayerClassFormatException("Unknown time/level while loading line: " + 
-							str + ", in class : " + name);
+							str + ", in class: " + name);
 				int level;
 				int duration;
 				try {
-					level = Integer.parseInt(numbers.split("*")[0]);
-					duration = Integer.parseInt(numbers.split("*")[1]);
+					Bukkit.broadcastMessage(ChatColor.RED + "1: " + numbers.toLowerCase().split("x")[0]);
+					Bukkit.broadcastMessage(ChatColor.RED + "2: " + numbers.toLowerCase().split("x")[1]);
+					level = Integer.parseInt(numbers.toLowerCase().split("x")[0]);
+					duration = Integer.parseInt(numbers.toLowerCase().split("x")[1]);
 				} catch (Exception e) {
 					throw new PlayerClassFormatException("Unknown time/level/error (" + e.toString() + ") while loading line: " + 
-							str + ", in class : " + name);
+							str + ", in class: " + name);
 				}
 				pClass.addPotionEffect(new PotionEffect(effect, duration * 20, level - 1));
 				break;
@@ -357,9 +362,10 @@ public class PlayerClass {
 		}
 		for (PotionEffect effect : this.potionEffects) {
 			String itemName = effect.getType().getName();
+			itemName = itemName.substring(0, 1).toUpperCase() + itemName.toLowerCase().substring(1);
 			int level = effect.getAmplifier() + 1;
 			int duration = effect.getDuration() / 20;
-			strList.add(ChatMessages.BLUE + format.replace("%%ITEM%%", itemName).replace("%%AMOUNT%%", duration + "*" + level));
+			strList.add(ChatMessages.BLUE + itemName + ": " + ChatColor.DARK_GRAY + "len " + ChatColor.RESET + duration + ChatColor.DARK_GRAY + " lvl " + ChatColor.RESET + level);
 		}
 		if (this.helm != null)
 			strList.add(ChatMessages.D_AQUA + "Helmet: " + ChatMessages.L_PURPLE + ItemGui.getMaterialName(this.helm.getType()));
