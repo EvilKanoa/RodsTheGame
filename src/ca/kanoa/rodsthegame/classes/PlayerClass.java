@@ -90,7 +90,7 @@ public class PlayerClass {
 							itemName + ", on line: " + str + ", in class " + 
 							name);
 				else
-					pClass.addRod(rod, amount);
+					pClass.addRod(rod, 1);
 				break;
 
 				//Armour Boots
