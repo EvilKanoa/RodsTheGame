@@ -1,8 +1,5 @@
 package kieronwiltshire.rods.gamemode;
 
-import java.util.Random;
-import java.util.Set;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -32,12 +29,12 @@ public class LobbyHandler extends FixedRunnable{
 
 
 	//<Index = 1>
-	public void chooseMap(){
-		try{
-			Set<String> maps = plugin.getConfig().getConfigurationSection("maps").getKeys(false);
-			int randomMap = new Random().nextInt(maps.size() < 1 ? 1 : maps.size());
-			String mapName = (String) maps.toArray()[randomMap];
-			Main.selectedMap = mapName;
+	public void chooseMap() {
+		try {
+			if (Main.mapIndex >= Main.maps.size()) {
+				Main.mapIndex = 0;
+			}
+			Main.selectedMap = Main.maps.get(Main.mapIndex++);
 			plugin.CheckMap();
 		} catch (NullPointerException e) {
 			System.out.print("No maps currently defined! use the [/import <map>] command.");

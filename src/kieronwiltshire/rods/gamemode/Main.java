@@ -2,7 +2,9 @@ package kieronwiltshire.rods.gamemode;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -51,6 +53,8 @@ public class Main extends JavaPlugin implements Listener
 	private File lobbyWorld;
 
 	public static String selectedMap = "";
+	public static int mapIndex = 0;
+	public static List<String> maps;
 
 	public static int lobbyTimer;
 	public static int gameTimer;
@@ -105,6 +109,8 @@ public class Main extends JavaPlugin implements Listener
 		classesHandle = new ClassesHandler();
 		signHandle = new SignHandler(this);
 		controlHandle = new WorldControlHandler(this);
+		
+		maps = Arrays.asList(plugin.getConfig().getConfigurationSection("maps").getKeys(false).toArray(new String[0]));
 
 		Bukkit.getPluginManager().registerEvents(playerHandle, this);
 		Bukkit.getPluginManager().registerEvents(signHandle, this);
