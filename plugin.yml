@@ -2,7 +2,7 @@ name: RodsTheGame
 version: 1.01
 main: kieronwiltshire.rods.gamemode.Main
 authors: [KraZ, 12323op]
-depend: [LightningRods 2, Batman API]
+depend: [RodsTwo, Batman API]
 permissions:
     rtg.admin:
         default: op

@@ -55,16 +55,21 @@ public class GameHandler extends FixedRunnable{
 			Bukkit.broadcastMessage(ChatMessages.twentySecGame);			
 		if(Main.gameTimer == 10)
 			Bukkit.broadcastMessage(ChatMessages.tenSecGame);					
-		if(Main.gameTimer == 5)
+		if(Main.gameTimer == 5) {
 			Bukkit.broadcastMessage(ChatMessages.fiveSecGame);	
-		if(Main.gameTimer == 4)
+		}
+		if(Main.gameTimer == 4) {
 			Bukkit.broadcastMessage(ChatMessages.fourSecGame);	
-		if(Main.gameTimer == 3)
+		}
+		if(Main.gameTimer == 3) {
 			Bukkit.broadcastMessage(ChatMessages.threeSecGame);	
-		if(Main.gameTimer == 2)
+		}
+		if(Main.gameTimer == 2) {
 			Bukkit.broadcastMessage(ChatMessages.twoSecGame);	
-		if(Main.gameTimer == 1)
+		}
+		if(Main.gameTimer == 1) {
 			Bukkit.broadcastMessage(ChatMessages.oneSecGame);	
+		}
 		if(Main.gameTimer == 0){
 			
 			stopTimer();

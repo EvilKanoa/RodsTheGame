@@ -22,11 +22,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import ca.kanoa.RodsTwo.Objects.PlayerUseRodEvent;
 import ca.kanoa.batman.utils.Healer;
 import ca.kanoa.batman.utils.InventoryClear;
 import ca.kanoa.batman.utils.SQL;
 import ca.kanoa.rodsthegame.ScoreboardHandler;
+import ca.kanoa.rodstwo.events.PlayerUseRodEvent;
 
 public class PlayerHandler extends BukkitRunnable implements Listener{
 
@@ -108,7 +108,7 @@ public class PlayerHandler extends BukkitRunnable implements Listener{
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
 			@Override
 			public void run() {
-				if(Main.lobbyBoolean == false && Bukkit.getOnlinePlayers().length < 2){
+				if(Main.lobbyBoolean == false && Bukkit.getOnlinePlayers().size() < 2){
 					Main.gameTimer = 5;
 				}
 			}}, 100);

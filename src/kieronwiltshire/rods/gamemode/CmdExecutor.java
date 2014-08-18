@@ -73,9 +73,8 @@ public class CmdExecutor implements CommandExecutor{
 			}
 		}
 
-		else if(cmd.getName().equalsIgnoreCase("forcestart")){
+		else if(cmd.getName().equalsIgnoreCase("forcestart")) {
 			Main.lobbyTimer = 5;
-			Main.neededPlayers = 0;
 			if(plugin.game.enabled == false) Bukkit.broadcastMessage(ChatMessages.L_PURPLE + "Match force-started by a staff member!");
 		}
 		

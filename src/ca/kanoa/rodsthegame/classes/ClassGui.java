@@ -2,7 +2,9 @@ package ca.kanoa.rodsthegame.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import kieronwiltshire.rods.gamemode.ChatMessages;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,8 +18,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import ca.kanoa.RodsTwo.RodsTwo;
 import ca.kanoa.rodsthegame.gui.ItemGui;
+import ca.kanoa.rodstwo.RodsTwo;
 
 public class ClassGui implements Listener {
 
@@ -28,14 +30,16 @@ public class ClassGui implements Listener {
 	public ClassGui(Player sender) {
 		this.buyer = sender;
 		populateStore();
-		Bukkit.getPluginManager().registerEvents(this, RodsTwo.plugin);
+		Bukkit.getPluginManager().registerEvents(this, RodsTwo.getInstance());
 	}
 
 	private void populateStore() {
 		storeFront = Bukkit.createInventory(buyer, roundUp(sizeWithPerms(ClassLoader.classes)), ChatMessages.guiTitle);
-		for (PlayerClass pc : ClassLoader.classes)
-			if (buyer.hasPermission(pc.getPermission()) || buyer.hasPermission("rtg.class.all"))
+		for (PlayerClass pc : ClassLoader.classes) {
+			if (buyer.hasPermission(pc.getPermission()) || buyer.hasPermission("rtg.class.all")) {
 				storeFront.addItem(pc.getGUIButton());
+			}
+		}
 	}
 
 	private int sizeWithPerms(List<?> set) {

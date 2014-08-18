@@ -12,7 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import ca.kanoa.RodsTwo.RodsTwo;
+import ca.kanoa.rodstwo.RodsTwo;
 
 public class ClassLoader {
 

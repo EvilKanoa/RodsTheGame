@@ -17,9 +17,9 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import ca.kanoa.RodsTwo.RodsTwo;
-import ca.kanoa.RodsTwo.Objects.Rod;
 import ca.kanoa.rodsthegame.gui.ItemGui;
+import ca.kanoa.rodstwo.RodsTwo;
+import ca.kanoa.rodstwo.rods.Rod;
 
 public class PlayerClass {
 
@@ -291,7 +291,7 @@ public class PlayerClass {
 		this.permission = new Permission("rtg.class." + name, "The default permission for " + name + "class.");
 		this.potionEffects = new HashSet<PotionEffect>();
 		this.items = new ArrayList<ItemStack>();
-		this.look = Material.PISTON_EXTENSION;
+		this.look = Material.BOOKSHELF;
 	}
 
 	/**

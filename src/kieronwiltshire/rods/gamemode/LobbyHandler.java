@@ -93,13 +93,18 @@ public class LobbyHandler extends FixedRunnable{
 		if(Main.lobbyTimer == 1)
 			Bukkit.broadcastMessage(ChatMessages.oneSecLobby);	
 		if(Main.lobbyTimer == 0){
-
-			if (Bukkit.getOnlinePlayers().length >= Main.neededPlayers) {
+			int online = 0;
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (p.isOnline()) {
+					online++;
+				}
+			}
+			
+			if (online >= Main.neededPlayers) {
 				Main.lobbyBoolean = false;
 				plugin.startGameTimer();
 				plugin.teleportHandle.teleportAllToMap();
 				plugin.game.enabled = true;
-				Main.neededPlayers = 2;
 				stopTimer();
 				for (Player player : Bukkit.getOnlinePlayers())
 					ScoreboardHandler.sendBoard(player);
